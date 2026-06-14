@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Faith First Fitness | Fun Children Fitness in Atlanta &amp; Gwinnett</title>
+<meta name="description" content="Faith First Fitness with Coach Lucas and Fun Freddie — fun, faith-based fitness for toddlers, pre-K, school-age, and exceptional-needs kids in the Atlanta & Gwinnett area. Beating childhood obesity one obstacle course at a time!" />
+<meta property="og:title" content="Faith First Fitness — I Can Do It! Fun Children Fitness!" />
+<meta property="og:description" content="Fun, faith-based fitness for kids with Coach Lucas & Fun Freddie. Obstacle courses, sports, nutrition & confidence." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B0%3C/text%3E%3C/svg%3E" />
+<style>
+  :root{
+    --navy:#16164a;
+    --navy-2:#20206e;
+    --red:#ff4d4d;
+    --orange:#ff7a2f;
+    --yellow:#ffd23f;
+    --green:#36c46b;
+    --blue:#2bb3ff;
+    --purple:#8a5cff;
+    --pink:#ff5fb0;
+    --cream:#fff8ee;
+    --ink:#2a2a44;
+    --radius:24px;
+    --shadow:0 18px 40px rgba(22,22,74,.14);
+    --shadow-sm:0 8px 20px rgba(22,22,74,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Nunito',system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{font-family:'Baloo 2','Fredoka',sans-serif;line-height:1.05;color:var(--navy)}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(1160px,92%);margin:0 auto}
+  section{position:relative}
+
+  /* ===== Buttons ===== */
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;
+    font-family:'Fredoka',sans-serif;font-weight:600;font-size:1.05rem;
+    padding:.85rem 1.6rem;border-radius:999px;border:none;cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+    box-shadow:var(--shadow-sm);
+  }
+  .btn:hover{transform:translateY(-3px)}
+  .btn-primary{background:var(--orange);color:#fff}
+  .btn-sun{background:var(--yellow);color:var(--navy)}
+  .btn-green{background:var(--green);color:#fff}
+  .btn-ghost{background:#fff;color:var(--navy);box-shadow:inset 0 0 0 2px rgba(22,22,74,.12)}
+  .btn-lg{font-size:1.15rem;padding:1rem 2rem}
+
+  /* ===== Nav ===== */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,248,238,.92);backdrop-filter:blur(10px);
+    border-bottom:2px solid rgba(22,22,74,.06);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 0}
+  .brand{display:flex;align-items:center;gap:.6rem}
+  .brand svg{height:54px;width:auto;flex:none}
+  .brand-word{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.15rem;line-height:.95;letter-spacing:.5px}
+  .brand-word small{display:block;font-size:.62rem;letter-spacing:3px;color:var(--orange);font-weight:700}
+  .nav-links{display:flex;align-items:center;gap:1.4rem}
+  .nav-links a.link{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--navy);position:relative}
+  .nav-links a.link:hover{color:var(--orange)}
+  .nav-phone{font-family:'Baloo 2';font-weight:700;color:var(--navy)}
+  .menu-btn{display:none;background:var(--navy);color:#fff;border:none;border-radius:12px;padding:.55rem .7rem;font-size:1.2rem;cursor:pointer}
+
+  @media(max-width:920px){
+    .nav-links{
+      position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;align-items:flex-start;gap:1rem;
+      background:#fff;padding:1.2rem 6%;box-shadow:var(--shadow);
+      transform:translateY(-150%);transition:transform .3s ease;
+    }
+    .nav-links.open{transform:translateY(0)}
+    .menu-btn{display:inline-block}
+  }
+
+  /* ===== Hero ===== */
+  .hero{padding:3.5rem 0 5rem;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border-radius:999px;padding:.4rem 1rem;font-family:'Fredoka';font-weight:600;color:var(--navy);box-shadow:var(--shadow-sm);margin-bottom:1.2rem}
+  .eyebrow .dot{width:10px;height:10px;border-radius:50%;background:var(--green)}
+  .hero h1{font-size:clamp(2.6rem,5.4vw,4.4rem);font-weight:800}
+  .hero h1 .rb{
+    background:linear-gradient(90deg,var(--red),var(--orange) 25%,var(--yellow) 45%,var(--green) 65%,var(--blue) 82%,var(--purple));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lead{font-size:1.2rem;margin:1.1rem 0 1.8rem;max-width:34rem;font-weight:600;color:#4a4a63}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:.8rem}
+  .hero-trust{display:flex;gap:1.6rem;margin-top:2rem;flex-wrap:wrap}
+  .hero-trust .stat b{font-family:'Baloo 2';font-size:1.6rem;color:var(--navy);display:block}
+  .hero-trust .stat span{font-size:.85rem;font-weight:700;color:#6a6a85}
+
+  .hero-art{position:relative;display:flex;justify-content:center}
+  .blob{position:absolute;inset:0;margin:auto;width:108%;height:108%;z-index:0}
+  .hero-art .mascot{position:relative;z-index:2;width:min(420px,90%)}
+  .float-badge{position:absolute;z-index:3;background:#fff;border-radius:18px;padding:.6rem .9rem;box-shadow:var(--shadow);font-family:'Fredoka';font-weight:600;display:flex;align-items:center;gap:.5rem;font-size:.95rem}
+  .float-badge .ico{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:1.1rem}
+  .fb1{top:6%;left:-2%;animation:bob 4s ease-in-out infinite}
+  .fb2{bottom:16%;right:-3%;animation:bob 4s ease-in-out infinite .8s}
+  .fb3{bottom:2%;left:8%;animation:bob 4s ease-in-out infinite 1.6s}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+  .wave{display:block;width:100%;height:auto;margin-bottom:-6px}
+
+  /* ===== Value props ===== */
+  .values{background:var(--navy);padding:4.5rem 0 5rem;color:#fff}
+  .values h2,.section-head h2{color:#fff}
+  .section-head{text-align:center;max-width:42rem;margin:0 auto 2.6rem}
+  .section-head .kicker{font-family:'Fredoka';font-weight:600;letter-spacing:2px;text-transform:uppercase;font-size:.8rem;color:var(--yellow)}
+  .section-head h2{font-size:clamp(2rem,4vw,2.9rem);margin:.3rem 0 .6rem}
+  .section-head p{color:#c7c7e6;font-weight:600}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+  .vcard{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:1.6rem;transition:transform .2s ease,background .2s}
+  .vcard:hover{transform:translateY(-6px);background:rgba(255,255,255,.1)}
+  .vcard .emoji{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;font-size:1.7rem;margin-bottom:1rem}
+  .vcard h3{color:#fff;font-size:1.25rem;margin-bottom:.35rem}
+  .vcard p{color:#c7c7e6;font-size:.95rem;font-weight:600}
+
+  /* ===== Programs ===== */
+  .programs{padding:5rem 0}
+  .programs .section-head h2{color:var(--navy)}
+  .programs .section-head .kicker{color:var(--orange)}
+  .programs .section-head p{color:#5a5a73}
+  .pcards{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+  .pcard{background:#fff;border-radius:var(--radius);padding:1.6rem;box-shadow:var(--shadow-sm);border-top:6px solid var(--c);transition:transform .2s}
+  .pcard:hover{transform:translateY(-6px)}
+  .pcard .age{font-family:'Fredoka';font-weight:600;font-size:.8rem;color:var(--c);text-transform:uppercase;letter-spacing:1px}
+  .pcard h3{font-size:1.35rem;margin:.2rem 0 .5rem}
+  .pcard p{font-size:.95rem;font-weight:600;color:#5a5a73}
+  .pcard .pic{font-size:2.2rem;margin-bottom:.6rem}
+
+  /* ===== Freddie ===== */
+  .freddie{background:linear-gradient(180deg,#fff,var(--cream));padding:4.5rem 0}
+  .freddie-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:2.5rem;align-items:center}
+  .freddie-art{position:relative;display:flex;justify-content:center}
+  .freddie-art .mascot{width:min(340px,85%);position:relative;z-index:2}
+  .freddie-art .ring{position:absolute;inset:0;margin:auto;width:90%;height:90%;background:radial-gradient(circle,var(--yellow),transparent 62%);z-index:1;opacity:.55}
+  .freddie h2{font-size:clamp(2rem,4vw,2.9rem)}
+  .freddie .kicker{font-family:'Fredoka';font-weight:600;letter-spacing:2px;text-transform:uppercase;font-size:.8rem;color:var(--purple)}
+  .freddie p{font-weight:600;color:#4a4a63;margin:.8rem 0;font-size:1.05rem}
+  .freddie ul{list-style:none;display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+  .freddie li{background:#fff;border-radius:999px;padding:.45rem 1rem;font-family:'Fredoka';font-weight:500;box-shadow:var(--shadow-sm);font-size:.9rem}
+
+  /* ===== Events ===== */
+  .events{padding:5rem 0}
+  .events .section-head h2{color:var(--navy)}
+  .events .section-head .kicker{color:var(--blue)}
+  .events .section-head p{color:#5a5a73}
+  .ecard{background:var(--navy);color:#fff;border-radius:28px;padding:2.4rem;display:grid;grid-template-columns:1.4fr 1fr;gap:2rem;align-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .ecard::after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,122,47,.4),transparent 70%);right:-80px;top:-80px}
+  .ecard h3{color:#fff;font-size:1.8rem;position:relative;z-index:1}
+  .ecard p{color:#cfcfee;font-weight:600;position:relative;z-index:1}
+  .ecard .tags{display:flex;gap:.5rem;flex-wrap:wrap;margin:.8rem 0 1.2rem;position:relative;z-index:1}
+  .ecard .tag{background:rgba(255,255,255,.12);border-radius:999px;padding:.3rem .8rem;font-size:.8rem;font-family:'Fredoka';font-weight:500}
+  .ecard .ebox{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:1.4rem;text-align:center;position:relative;z-index:1}
+  .ecard .ebox .big{font-family:'Baloo 2';font-size:2.4rem;color:var(--yellow);line-height:1}
+  .ecard .ebox .small{font-weight:700;color:#cfcfee;font-size:.9rem}
+  .mini-events{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.4rem}
+  .mini{background:#fff;border-radius:20px;padding:1.4rem;box-shadow:var(--shadow-sm);border-left:6px solid var(--c)}
+  .mini h4{font-family:'Baloo 2';color:var(--navy);font-size:1.15rem}
+  .mini p{font-weight:600;color:#5a5a73;font-size:.92rem}
+
+  /* ===== Coach ===== */
+  .coach{background:var(--navy);color:#fff;padding:4.5rem 0}
+  .coach-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:2.5rem;align-items:center}
+  .coach-card{background:linear-gradient(135deg,var(--purple),var(--blue));border-radius:28px;padding:2.5rem;text-align:center;box-shadow:var(--shadow)}
+  .coach-card .av{width:120px;height:120px;border-radius:50%;background:#fff;margin:0 auto 1rem;display:grid;place-items:center;font-size:3rem}
+  .coach-card h3{color:#fff;font-size:1.6rem}
+  .coach-card .role{font-family:'Fredoka';font-weight:500;color:rgba(255,255,255,.85)}
+  .coach h2{color:#fff;font-size:clamp(2rem,4vw,2.8rem)}
+  .coach .kicker{font-family:'Fredoka';font-weight:600;letter-spacing:2px;text-transform:uppercase;font-size:.8rem;color:var(--yellow)}
+  .coach p{color:#cfcfee;font-weight:600;margin:.9rem 0;font-size:1.05rem}
+
+  /* ===== Contact ===== */
+  .contact{padding:5rem 0}
+  .contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:2.5rem;align-items:start}
+  .contact .section-head{text-align:left;margin:0 0 1.4rem}
+  .contact .section-head h2{color:var(--navy)}
+  .contact .section-head .kicker{color:var(--green)}
+  .contact .section-head p{color:#5a5a73}
+  .info-row{display:flex;align-items:center;gap:.9rem;margin:1rem 0;font-weight:700;color:var(--navy)}
+  .info-row .ico{width:46px;height:46px;border-radius:14px;background:#fff;display:grid;place-items:center;font-size:1.3rem;box-shadow:var(--shadow-sm);flex:none}
+  .socials{display:flex;gap:.7rem;margin-top:1.4rem}
+  .socials a{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--navy);color:#fff;font-weight:700;transition:transform .15s}
+  .socials a:hover{transform:translateY(-3px)}
+
+  form.lead{background:#fff;border-radius:28px;padding:2rem;box-shadow:var(--shadow)}
+  form.lead .field{margin-bottom:1rem}
+  form.lead label{display:block;font-family:'Fredoka';font-weight:500;color:var(--navy);margin-bottom:.35rem;font-size:.95rem}
+  form.lead input,form.lead select,form.lead textarea{
+    width:100%;padding:.85rem 1rem;border-radius:14px;border:2px solid #ece6da;
+    font-family:'Nunito';font-size:1rem;font-weight:600;background:var(--cream);color:var(--ink);
+    transition:border-color .15s;
+  }
+  form.lead input:focus,form.lead select:focus,form.lead textarea:focus{outline:none;border-color:var(--orange)}
+  form.lead .row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  form.lead textarea{resize:vertical;min-height:90px}
+  .form-msg{margin-top:1rem;padding:.9rem 1rem;border-radius:14px;font-weight:700;display:none}
+  .form-msg.ok{display:block;background:#e4f8ec;color:#1f8a4c}
+  .form-msg.err{display:block;background:#fdecec;color:#c0392b}
+
+  /* ===== Footer ===== */
+  footer{background:#0f0f38;color:#bdbde0;padding:3rem 0 2rem}
+  .foot-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:2rem;align-items:flex-start}
+  footer .brand-word{color:#fff}
+  footer a:hover{color:#fff}
+  .foot-links{display:flex;gap:2rem;flex-wrap:wrap}
+  .foot-links a{font-family:'Fredoka';font-weight:500}
+  .foot-bottom{margin-top:2rem;padding-top:1.4rem;border-top:1px solid rgba(255,255,255,.1);font-size:.85rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem}
+
+  @media(max-width:920px){
+    .hero-grid,.freddie-grid,.coach-grid,.contact-grid{grid-template-columns:1fr}
+    .hero-art{order:-1}
+    .cards,.pcards{grid-template-columns:1fr 1fr}
+    .ecard{grid-template-columns:1fr}
+    .mini-events{grid-template-columns:1fr}
+  }
+  @media(max-width:560px){
+    .cards,.pcards,form.lead .row{grid-template-columns:1fr}
+    .hero h1{font-size:2.5rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#home" class="brand" aria-label="Faith First Fitness home">
+      <!-- LOGO: swap this <svg> for <img src="logo.png" alt="Faith First Fitness"> when the real logo is ready -->
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fun Freddie">
+        <circle cx="40" cy="40" r="38" fill="#16164a"/>
+        <!-- ears -->
+        <ellipse cx="31" cy="22" rx="6" ry="15" fill="#c98a5e" transform="rotate(-12 31 22)"/>
+        <ellipse cx="49" cy="22" rx="6" ry="15" fill="#c98a5e" transform="rotate(12 49 22)"/>
+        <ellipse cx="31" cy="22" rx="2.6" ry="9" fill="#ffd9c2" transform="rotate(-12 31 22)"/>
+        <ellipse cx="49" cy="22" rx="2.6" ry="9" fill="#ffd9c2" transform="rotate(12 49 22)"/>
+        <!-- head -->
+        <circle cx="40" cy="45" r="18" fill="#d99a6c"/>
+        <!-- headband -->
+        <rect x="22" y="36" width="36" height="5" rx="2.5" fill="#ff4d4d"/>
+        <!-- eyes -->
+        <circle cx="34" cy="45" r="2.6" fill="#16164a"/>
+        <circle cx="46" cy="45" r="2.6" fill="#16164a"/>
+        <circle cx="34.9" cy="44.2" r=".8" fill="#fff"/>
+        <circle cx="46.9" cy="44.2" r=".8" fill="#fff"/>
+        <!-- nose + smile -->
+        <path d="M38 50 h4 l-2 2.4 z" fill="#ff5fb0"/>
+        <path d="M34 53 q6 5 12 0" stroke="#7a4a2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- teeth -->
+        <rect x="38.4" y="53.6" width="3.2" height="3.4" rx="1" fill="#fff"/>
+      </svg>
+      <span class="brand-word">FAITH FIRST<br/>FITNESS<small>FUN FREDDIE</small></span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a class="link" href="#programs">Programs</a>
+      <a class="link" href="#freddie">Fun Freddie</a>
+      <a class="link" href="#events">Events</a>
+      <a class="link" href="#coach">Coach Lucas</a>
+      <a class="nav-phone" href="tel:+16789147132">📞 (678) 914-7132</a>
+      <a class="btn btn-primary" href="#contact">Join the Fun</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="dot"></span> Faith-based fun fitness for kids</span>
+      <h1>I Can Do It!<br/><span class="rb">Fun Children Fitness!</span></h1>
+      <p class="lead">High-energy, faith-filled fitness for toddlers, pre-K, school-age &amp; exceptional-needs kids. We beat childhood obesity one obstacle course, sport, and smile at a time — building strong bodies, sharp minds, and confident hearts.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="#contact">Sign My Kid Up 🎉</a>
+        <a class="btn btn-ghost btn-lg" href="#programs">See Programs</a>
+      </div>
+      <div class="hero-trust">
+        <div class="stat"><b>1,000+</b><span>Kids moving &amp; smiling</span></div>
+        <div class="stat"><b>Ages 1–12</b><span>Toddlers to school-age</span></div>
+        <div class="stat"><b>All abilities</b><span>Exceptional-needs welcome</span></div>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <svg class="blob" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path fill="#2bb3ff" d="M300 40c120 0 230 70 250 190s-40 250-160 290-280 10-330-110 0-280 90-330c45-25 95-40 150-40z" opacity=".18"/>
+        <path fill="#ff7a2f" d="M310 80c100 0 200 60 215 165s-35 215-140 250-240 10-285-95 0-240 80-285c40-20 85-35 130-35z" opacity=".16"/>
+      </svg>
+
+      <!-- Fun Freddie mascot illustration (placeholder artwork — swap for real mascot art anytime) -->
+      <svg class="mascot" viewBox="0 0 360 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fun Freddie the fitness bunny">
+        <!-- ears -->
+        <ellipse cx="150" cy="70" rx="26" ry="64" fill="#d99a6c" transform="rotate(-10 150 70)"/>
+        <ellipse cx="214" cy="70" rx="26" ry="64" fill="#d99a6c" transform="rotate(10 214 70)"/>
+        <ellipse cx="150" cy="74" rx="11" ry="40" fill="#ffd9c2" transform="rotate(-10 150 74)"/>
+        <ellipse cx="214" cy="74" rx="11" ry="40" fill="#ffd9c2" transform="rotate(10 214 74)"/>
+        <!-- body -->
+        <rect x="118" y="210" width="128" height="150" rx="50" fill="#36c46b"/>
+        <rect x="118" y="210" width="128" height="60" rx="30" fill="#2bb3ff"/>
+        <!-- arms (one flexing up) -->
+        <path d="M236 230 q56 -10 44 -70 q-3 -18 -22 -14 q-16 4 -10 22 q6 22 -30 30 z" fill="#d99a6c"/>
+        <circle cx="262" cy="150" r="16" fill="#d99a6c"/>
+        <path d="M120 240 q-44 6 -40 56 q2 16 18 12 q12 -4 8 -18 q-4 -16 26 -22 z" fill="#d99a6c"/>
+        <!-- legs -->
+        <rect x="138" y="350" width="34" height="46" rx="16" fill="#d99a6c"/>
+        <rect x="192" y="350" width="34" height="46" rx="16" fill="#d99a6c"/>
+        <ellipse cx="150" cy="402" rx="26" ry="14" fill="#ff4d4d"/>
+        <ellipse cx="214" cy="402" rx="26" ry="14" fill="#ff4d4d"/>
+        <!-- head -->
+        <circle cx="182" cy="160" r="62" fill="#d99a6c"/>
+        <!-- headband -->
+        <rect x="124" y="132" width="116" height="16" rx="8" fill="#ff4d4d"/>
+        <rect x="124" y="132" width="116" height="6" rx="3" fill="#ffd23f"/>
+        <!-- cheeks -->
+        <circle cx="150" cy="178" r="9" fill="#ff9aa6" opacity=".6"/>
+        <circle cx="214" cy="178" r="9" fill="#ff9aa6" opacity=".6"/>
+        <!-- eyes -->
+        <circle cx="160" cy="162" r="8" fill="#16164a"/>
+        <circle cx="204" cy="162" r="8" fill="#16164a"/>
+        <circle cx="162.6" cy="159" r="2.6" fill="#fff"/>
+        <circle cx="206.6" cy="159" r="2.6" fill="#fff"/>
+        <!-- nose + smile -->
+        <path d="M176 176 h12 l-6 7 z" fill="#ff5fb0"/>
+        <path d="M166 184 q16 14 32 0" stroke="#7a4a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <rect x="176" y="186" width="6" height="8" rx="2" fill="#fff"/>
+        <rect x="183" y="186" width="6" height="8" rx="2" fill="#fff"/>
+        <!-- number on shirt -->
+        <text x="182" y="320" font-family="Baloo 2,sans-serif" font-size="58" font-weight="800" fill="#fff" text-anchor="middle">1</text>
+      </svg>
+
+      <div class="float-badge fb1"><span class="ico" style="background:#ffe7d1">🏃</span> Obstacle Courses</div>
+      <div class="float-badge fb2"><span class="ico" style="background:#dff6e6">🥦</span> Healthy Eating</div>
+      <div class="float-badge fb3"><span class="ico" style="background:#e6f4ff">⭐</span> Big Confidence</div>
+    </div>
+  </div>
+</section>
+
+<svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#16164a" d="M0 40 C 240 90 480 0 720 30 C 960 60 1200 90 1440 50 L1440 90 L0 90 Z"/></svg>
+
+<!-- ============ VALUES ============ -->
+<section class="values">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Why Faith First Fitness</span>
+      <h2>Strong bodies. Sharp minds. Brave hearts.</h2>
+      <p>Every class blends movement, nutrition, social skills, and faith — so kids grow healthy on the outside and confident on the inside.</p>
+    </div>
+    <div class="cards">
+      <div class="vcard"><div class="emoji" style="background:rgba(255,122,47,.18)">🏃</div><h3>Move &amp; Play</h3><p>Obstacle courses, sports, and games build strength, coordination &amp; balance — and burn off all that energy!</p></div>
+      <div class="vcard"><div class="emoji" style="background:rgba(54,196,107,.18)">🥦</div><h3>Eat Smart</h3><p>Fun lessons on fruits, veggies, and fueling little bodies the healthy way to fight childhood obesity.</p></div>
+      <div class="vcard"><div class="emoji" style="background:rgba(43,179,255,.18)">🧠</div><h3>Focus &amp; Grow</h3><p>Activities sharpen concentration, memory, and problem-solving — skills that carry into the classroom.</p></div>
+      <div class="vcard"><div class="emoji" style="background:rgba(138,92,255,.18)">❤️</div><h3>Faith &amp; Confidence</h3><p>We nurture the spiritual and emotional heart, helping every child believe: <em>"I can do it!"</em></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRAMS ============ -->
+<section class="programs" id="programs">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Our Programs</span>
+      <h2>Fitness fun for every age &amp; ability</h2>
+      <p>From wobbly first steps to school-age champions, there's a Faith First Fitness program made just for your child.</p>
+    </div>
+    <div class="pcards">
+      <div class="pcard" style="--c:var(--orange)"><div class="pic">🧸</div><span class="age">Ages 1–3</span><h3>Tiny Tots</h3><p>Gentle movement, music &amp; play that builds motor skills and a lifelong love of being active.</p></div>
+      <div class="pcard" style="--c:var(--green)"><div class="pic">🎈</div><span class="age">Ages 3–5</span><h3>Pre-K Playmakers</h3><p>Obstacle courses, balance &amp; teamwork games that get little ones ready for school and sport.</p></div>
+      <div class="pcard" style="--c:var(--blue)"><div class="pic">⚽</div><span class="age">Ages 6–12</span><h3>School-Age Stars</h3><p>Sports fundamentals, agility challenges &amp; fitness games that build skills, grit and friendships.</p></div>
+      <div class="pcard" style="--c:var(--purple)"><div class="pic">🌟</div><span class="age">All ages</span><h3>Exceptional Needs</h3><p>Caring, adaptive fitness designed so every child — including special-needs kids — can shine and succeed.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FUN FREDDIE ============ -->
+<section class="freddie" id="freddie">
+  <div class="wrap freddie-grid">
+    <div class="freddie-art">
+      <div class="ring"></div>
+      <svg class="mascot" viewBox="0 0 360 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fun Freddie waving">
+        <ellipse cx="150" cy="70" rx="26" ry="64" fill="#d99a6c" transform="rotate(-10 150 70)"/>
+        <ellipse cx="214" cy="70" rx="26" ry="64" fill="#d99a6c" transform="rotate(10 214 70)"/>
+        <ellipse cx="150" cy="74" rx="11" ry="40" fill="#ffd9c2" transform="rotate(-10 150 74)"/>
+        <ellipse cx="214" cy="74" rx="11" ry="40" fill="#ffd9c2" transform="rotate(10 214 74)"/>
+        <rect x="118" y="210" width="128" height="150" rx="50" fill="#8a5cff"/>
+        <rect x="118" y="210" width="128" height="60" rx="30" fill="#ff5fb0"/>
+        <path d="M236 230 q56 -10 44 -70 q-3 -18 -22 -14 q-16 4 -10 22 q6 22 -30 30 z" fill="#d99a6c"/>
+        <circle cx="262" cy="150" r="16" fill="#d99a6c"/>
+        <path d="M120 240 q-44 6 -40 56 q2 16 18 12 q12 -4 8 -18 q-4 -16 26 -22 z" fill="#d99a6c"/>
+        <rect x="138" y="350" width="34" height="46" rx="16" fill="#d99a6c"/>
+        <rect x="192" y="350" width="34" height="46" rx="16" fill="#d99a6c"/>
+        <ellipse cx="150" cy="402" rx="26" ry="14" fill="#2bb3ff"/>
+        <ellipse cx="214" cy="402" rx="26" ry="14" fill="#2bb3ff"/>
+        <circle cx="182" cy="160" r="62" fill="#d99a6c"/>
+        <rect x="124" y="132" width="116" height="16" rx="8" fill="#36c46b"/>
+        <circle cx="150" cy="178" r="9" fill="#ff9aa6" opacity=".6"/>
+        <circle cx="214" cy="178" r="9" fill="#ff9aa6" opacity=".6"/>
+        <circle cx="160" cy="162" r="8" fill="#16164a"/>
+        <circle cx="204" cy="162" r="8" fill="#16164a"/>
+        <circle cx="162.6" cy="159" r="2.6" fill="#fff"/>
+        <circle cx="206.6" cy="159" r="2.6" fill="#fff"/>
+        <path d="M176 176 h12 l-6 7 z" fill="#ff5fb0"/>
+        <path d="M166 184 q16 14 32 0" stroke="#7a4a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <rect x="176" y="186" width="6" height="8" rx="2" fill="#fff"/>
+        <rect x="183" y="186" width="6" height="8" rx="2" fill="#fff"/>
+      </svg>
+    </div>
+    <div>
+      <span class="kicker">Meet the Mascot</span>
+      <h2>Say hi to Fun Freddie! 🐰</h2>
+      <p>Fun Freddie is the heart of Faith First Fitness — a high-energy bunny who shows kids that getting fit is an adventure, not a chore. Through obstacle courses, the basics of sports, and even a little yoga, Freddie helps kids build fine and gross motor skills, coordination, and balance.</p>
+      <p>Wherever Freddie hops, kids learn that healthy habits, teamwork, and a faith-filled attitude make them unstoppable. His motto? <strong>"I can do it!"</strong></p>
+      <ul>
+        <li>🤸 Motor skills</li>
+        <li>🧘 Coordination &amp; balance</li>
+        <li>⚽ Sports basics</li>
+        <li>😄 Confidence</li>
+        <li>🙏 Faith &amp; kindness</li>
+      </ul>
+      <div style="margin-top:1.6rem;display:flex;gap:.7rem;flex-wrap:wrap">
+        <a class="btn btn-green" href="https://www.youtube.com/@funfreddietv" target="_blank" rel="noopener">▶ Watch Fun Freddie TV</a>
+        <a class="btn btn-ghost" href="#contact">Bring Freddie to my kid</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVENTS ============ -->
+<section class="events" id="events">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Events &amp; Field Days</span>
+      <h2>Come play with us!</h2>
+      <p>Faith First Fitness hosts high-energy field days and takeovers across the Atlanta &amp; Gwinnett area. Reserve your spot for the next one!</p>
+    </div>
+
+    <div class="ecard">
+      <div>
+        <h3>Atlanta Kids Field Day</h3>
+        <div class="tags"><span class="tag">📍 Atlanta &amp; Gwinnett, GA</span><span class="tag">👧 All ages</span><span class="tag">🎉 Games &amp; prizes</span></div>
+        <p>Our signature day of fun, fitness &amp; friendly competition — obstacle courses, relay races, challenges, and awesome prizes. Bring the whole family!</p>
+        <div style="margin-top:1.3rem;display:flex;gap:.7rem;flex-wrap:wrap">
+          <a class="btn btn-sun btn-lg" href="#contact">Save My Spot</a>
+          <a class="btn btn-ghost btn-lg" href="https://www.eventbrite.com/o/the-j-butler-wilson-foundation" target="_blank" rel="noopener" style="color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.3)">See on Eventbrite</a>
+        </div>
+      </div>
+      <div class="ebox">
+        <div class="small">NEXT FIELD DAY</div>
+        <div class="big">Coming<br/>Soon</div>
+        <div class="small" style="margin-top:.6rem">Join the list to be first to know 🎟️</div>
+      </div>
+    </div>
+
+    <div class="mini-events">
+      <div class="mini" style="--c:var(--orange)"><h4>🏅 Middle School Takeover</h4><p>Field-day challenges, games &amp; prizes built for older kids and middle schoolers across Gwinnett County.</p></div>
+      <div class="mini" style="--c:var(--purple)"><h4>🏫 School &amp; Daycare Visits</h4><p>Invite Fun Freddie and Coach Lucas to bring fitness fun straight to your school, daycare, or community event.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COACH ============ -->
+<section class="coach" id="coach">
+  <div class="wrap coach-grid">
+    <div class="coach-card">
+      <div class="av">🧑🏽‍🏫</div>
+      <h3>Coach Lucas</h3>
+      <div class="role">Founder &amp; CEO, Faith First Fitness</div>
+    </div>
+    <div>
+      <span class="kicker">Meet the Coach</span>
+      <h2>Led with heart by Coach Lucas</h2>
+      <p>Coach Datavious Lucas founded Faith First Fitness on a simple belief: every child deserves to feel strong, capable, and loved. As a youth development specialist turned founder, he's made it his mission to fight childhood obesity and build confidence through movement and faith.</p>
+      <p>With a team of high-energy coaches and one very bouncy bunny, Coach Lucas nurtures the physical, emotional, and spiritual health of every kid who walks through the door.</p>
+      <div style="margin-top:1.4rem;display:flex;gap:.7rem;flex-wrap:wrap">
+        <a class="btn btn-primary" href="#contact">Work With Coach Lucas</a>
+        <a class="btn btn-ghost" href="https://www.instagram.com/faithfirstfitness/" target="_blank" rel="noopener">Follow on Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <div class="section-head">
+        <span class="kicker">Get Started</span>
+        <h2>Let's get your kid moving!</h2>
+        <p>Fill out the form and Coach Lucas's team will reach out about programs, events, and bringing Fun Freddie to you.</p>
+      </div>
+      <div class="info-row"><span class="ico">📞</span><a href="tel:+16789147132">(678) 914-7132</a></div>
+      <div class="info-row"><span class="ico">📍</span><span>Serving the Atlanta &amp; Gwinnett area, GA</span></div>
+      <div class="info-row"><span class="ico">🌐</span><a href="https://fffkids.com" target="_blank" rel="noopener">fffkids.com</a></div>
+      <div class="socials">
+        <a href="https://www.instagram.com/faithfirstfitness/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">IG</a>
+        <a href="https://www.youtube.com/@funfreddietv" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">▶</a>
+      </div>
+    </div>
+
+    <form class="lead" id="leadForm">
+      <div class="field">
+        <label for="name">Parent / Guardian name *</label>
+        <input id="name" name="name" type="text" required placeholder="Your name" />
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@email.com" />
+        </div>
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" placeholder="(678) 000-0000" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="child_age">Child's age</label>
+          <input id="child_age" name="child_age" type="text" placeholder="e.g. 4 years" />
+        </div>
+        <div class="field">
+          <label for="interest">I'm interested in</label>
+          <select id="interest" name="interest">
+            <option value="">Choose one…</option>
+            <option>Tiny Tots (1–3)</option>
+            <option>Pre-K Playmakers (3–5)</option>
+            <option>School-Age Stars (6–12)</option>
+            <option>Exceptional Needs program</option>
+            <option>Field Day / Event</option>
+            <option>School / Daycare visit</option>
+            <option>Something else</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Tell us about your child and what you're looking for!"></textarea>
+      </div>
+      <button class="btn btn-primary btn-lg" type="submit" id="submitBtn" style="width:100%;justify-content:center">Send to Coach Lucas 🎉</button>
+      <div class="form-msg" id="formMsg"></div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div style="max-width:22rem">
+        <div class="brand-word" style="font-family:'Baloo 2';font-weight:800;font-size:1.3rem">FAITH FIRST FITNESS</div>
+        <p style="margin-top:.6rem;font-size:.95rem">"I Can Do It!" — Fun, faith-based children's fitness with Coach Lucas &amp; Fun Freddie. Building healthy, confident kids across Atlanta &amp; Gwinnett.</p>
+      </div>
+      <div class="foot-links">
+        <a href="#programs">Programs</a>
+        <a href="#freddie">Fun Freddie</a>
+        <a href="#events">Events</a>
+        <a href="#coach">Coach Lucas</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="yr"></span> Faith First Fitness. All rights reserved.</span>
+      <span>📞 (678) 914-7132 · Atlanta &amp; Gwinnett, GA</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const menuBtn=document.getElementById('menuBtn'), navLinks=document.getElementById('navLinks');
+  menuBtn.addEventListener('click',()=>navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+  document.getElementById('yr').textContent=new Date().getFullYear();
+
+  // ===== Supabase lead capture =====
+  const SUPABASE_URL="https://alebrgmhuemsvcjdiqth.supabase.co";
+  const SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFsZWJyZ21odWVtc3ZjamRpcXRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0MDY1OTYsImV4cCI6MjA5Njk4MjU5Nn0.c5rXXHipkVgG7HXcOPSw-P47JcCwqirzIjyuH1Y9NUc";
+
+  const form=document.getElementById('leadForm');
+  const msg=document.getElementById('formMsg');
+  const submitBtn=document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    msg.className='form-msg';
+    const data={
+      name:form.name.value.trim(),
+      email:form.email.value.trim()||null,
+      phone:form.phone.value.trim()||null,
+      child_age:form.child_age.value.trim()||null,
+      interest:form.interest.value||null,
+      message:form.message.value.trim()||null
+    };
+    if(!data.name){msg.className='form-msg err';msg.textContent='Please add your name.';return;}
+    submitBtn.disabled=true; const orig=submitBtn.textContent; submitBtn.textContent='Sending…';
+    try{
+      const res=await fetch(`${SUPABASE_URL}/rest/v1/leads`,{
+        method:'POST',
+        headers:{
+          'apikey':SUPABASE_KEY,
+          'Authorization':`Bearer ${SUPABASE_KEY}`,
+          'Content-Type':'application/json',
+          'Prefer':'return=minimal'
+        },
+        body:JSON.stringify(data)
+      });
+      if(!res.ok){throw new Error('HTTP '+res.status);}
+      msg.className='form-msg ok';
+      msg.textContent='🎉 Thank you! Coach Lucas\'s team will be in touch soon.';
+      form.reset();
+    }catch(err){
+      msg.className='form-msg err';
+      msg.innerHTML='Hmm, something went wrong. Please call us at <a href="tel:+16789147132">(678) 914-7132</a>.';
+    }finally{
+      submitBtn.disabled=false; submitBtn.textContent=orig;
+    }
+  });
+</script>
+</body>
+</html>
