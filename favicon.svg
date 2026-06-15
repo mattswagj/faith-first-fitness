@@ -1,0 +1,16 @@
+<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Faith First Fitness - Fun Freddie the caterpillar">
+  <rect width="80" height="80" rx="18" fill="#1a1370"/>
+  <circle cx="29" cy="64" r="11" fill="#ff6a00"/>
+  <circle cx="49" cy="62" r="12" fill="#00b3ff"/>
+  <path d="M33 24 q-3 -9 -9 -11" stroke="#ff3d9a" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <path d="M47 24 q3 -9 9 -11" stroke="#ff3d9a" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <circle cx="23" cy="12" r="3.4" fill="#ffd000"/>
+  <circle cx="57" cy="12" r="3.4" fill="#19d36b"/>
+  <circle cx="40" cy="40" r="20" fill="#9fe800"/>
+  <rect x="21" y="28" width="38" height="6" rx="3" fill="#ff2d4d"/>
+  <circle cx="34" cy="41" r="4" fill="#fff"/>
+  <circle cx="46" cy="41" r="4" fill="#fff"/>
+  <circle cx="35" cy="42" r="2.1" fill="#1a1370"/>
+  <circle cx="47" cy="42" r="2.1" fill="#1a1370"/>
+  <path d="M34 49 q6 6 12 0" stroke="#3a7a00" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+</svg>

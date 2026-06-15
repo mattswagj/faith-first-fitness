@@ -5,26 +5,71 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Faith First Fitness | Fun Children Fitness in Atlanta &amp; Gwinnett</title>
 <meta name="description" content="Faith First Fitness with Coach Lucas and Fun Freddie — fun, faith-based fitness for toddlers, pre-K, school-age, and exceptional-needs kids in the Atlanta & Gwinnett area. Beating childhood obesity one obstacle course at a time!" />
-<meta property="og:title" content="Faith First Fitness — I Can Do It! Fun Children Fitness!" />
-<meta property="og:description" content="Fun, faith-based fitness for kids with Coach Lucas & Fun Freddie. Obstacle courses, sports, nutrition & confidence." />
+<meta name="keywords" content="kids fitness, children fitness Atlanta, Gwinnett kids fitness, toddler fitness, pre-k fitness, special needs fitness, Coach Lucas, Fun Freddie, childhood obesity, faith based fitness" />
+<meta name="author" content="Faith First Fitness" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#1a1370" />
+<link rel="canonical" href="https://faith-first-fitness.vercel.app/" />
+
+<!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
+<meta property="og:site_name" content="Faith First Fitness" />
+<meta property="og:url" content="https://faith-first-fitness.vercel.app/" />
+<meta property="og:title" content="Faith First Fitness — I Can Do It! Fun Children Fitness!" />
+<meta property="og:description" content="Fun, faith-based fitness for kids with Coach Lucas & Fun Freddie. Obstacle courses, sports, nutrition & confidence for toddlers through school-age in Atlanta & Gwinnett." />
+<meta property="og:image" content="https://faith-first-fitness.vercel.app/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Faith First Fitness — I Can Do It! Fun Children Fitness! with Fun Freddie the caterpillar mascot" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Faith First Fitness — I Can Do It! Fun Children Fitness!" />
+<meta name="twitter:description" content="Fun, faith-based fitness for kids with Coach Lucas & Fun Freddie in Atlanta & Gwinnett, GA." />
+<meta name="twitter:image" content="https://faith-first-fitness.vercel.app/og-image.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B0%3C/text%3E%3C/svg%3E" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+<!-- Structured data: local business / sports activity for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["SportsActivityLocation", "ChildCare"],
+  "name": "Faith First Fitness",
+  "alternateName": "FFF Kids",
+  "description": "Fun, faith-based children's fitness for toddlers, pre-K, school-age, and exceptional-needs kids in the Atlanta & Gwinnett area.",
+  "url": "https://faith-first-fitness.vercel.app/",
+  "image": "https://faith-first-fitness.vercel.app/og-image.png",
+  "telephone": "+1-678-914-7132",
+  "areaServed": ["Atlanta, GA", "Gwinnett County, GA"],
+  "slogan": "I Can Do It! Fun Children Fitness!",
+  "sameAs": [
+    "https://www.instagram.com/faithfirstfitness/",
+    "https://www.youtube.com/@funfreddietv",
+    "https://fffkids.com"
+  ]
+}
+</script>
 <style>
   :root{
-    --navy:#16164a;
-    --navy-2:#20206e;
-    --red:#ff4d4d;
-    --orange:#ff7a2f;
-    --yellow:#ffd23f;
-    --green:#36c46b;
-    --blue:#2bb3ff;
-    --purple:#8a5cff;
-    --pink:#ff5fb0;
-    --cream:#fff8ee;
-    --ink:#2a2a44;
+    --navy:#1a1370;
+    --navy-2:#2a1fae;
+    --red:#ff2d4d;
+    --orange:#ff6a00;
+    --yellow:#ffd000;
+    --green:#19d36b;
+    --blue:#00b3ff;
+    --purple:#9b30ff;
+    --pink:#ff3d9a;
+    --teal:#00e0c6;
+    --lime:#9fe800;
+    --cream:#fff6e3;
+    --ink:#241f4a;
     --radius:24px;
     --shadow:0 18px 40px rgba(22,22,74,.14);
     --shadow-sm:0 8px 20px rgba(22,22,74,.10);
@@ -35,6 +80,10 @@
     font-family:'Nunito',system-ui,sans-serif;
     color:var(--ink);
     background:var(--cream);
+    background-image:
+      radial-gradient(circle at 0% 0%, rgba(0,179,255,.10), transparent 38%),
+      radial-gradient(circle at 100% 4%, rgba(255,61,154,.10), transparent 40%),
+      radial-gradient(circle at 50% 100%, rgba(155,48,255,.07), transparent 45%);
     line-height:1.6;
     overflow-x:hidden;
   }
@@ -42,6 +91,20 @@
   a{color:inherit;text-decoration:none}
   .wrap{width:min(1160px,92%);margin:0 auto}
   section{position:relative}
+
+  /* ===== Accessibility ===== */
+  .skip-link{
+    position:absolute;left:-9999px;top:0;z-index:200;
+    background:var(--navy);color:#fff;padding:.8rem 1.2rem;border-radius:0 0 12px 0;
+    font-family:'Fredoka',sans-serif;font-weight:600;
+  }
+  .skip-link:focus{left:0}
+  :focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:6px}
+  .values :focus-visible,.coach :focus-visible,.ecard :focus-visible{outline-color:var(--yellow)}
+  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+  }
 
   /* ===== Buttons ===== */
   .btn{
@@ -67,6 +130,8 @@
   .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 0}
   .brand{display:flex;align-items:center;gap:.6rem}
   .brand svg{height:54px;width:auto;flex:none}
+  .logo-slot{display:inline-flex;align-items:center;flex:none}
+  .logo-img{height:54px;width:auto;display:block;flex:none}
   .brand-word{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.15rem;line-height:.95;letter-spacing:.5px}
   .brand-word small{display:block;font-size:.62rem;letter-spacing:3px;color:var(--orange);font-weight:700}
   .nav-links{display:flex;align-items:center;gap:1.4rem}
@@ -87,7 +152,10 @@
   }
 
   /* ===== Hero ===== */
-  .hero{padding:3.5rem 0 5rem;overflow:hidden}
+  .hero{padding:3.5rem 0 5rem;overflow:hidden;
+    background:
+      radial-gradient(circle at 85% 18%, rgba(255,208,0,.20), transparent 42%),
+      radial-gradient(circle at 12% 30%, rgba(0,224,198,.16), transparent 46%);}
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center}
   .eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border-radius:999px;padding:.4rem 1rem;font-family:'Fredoka';font-weight:600;color:var(--navy);box-shadow:var(--shadow-sm);margin-bottom:1.2rem}
   .eyebrow .dot{width:10px;height:10px;border-radius:50%;background:var(--green)}
@@ -234,34 +302,46 @@
 </style>
 </head>
 <body>
+<a class="skip-link" href="#home">Skip to main content</a>
 
 <!-- ============ NAV ============ -->
 <header class="nav">
   <div class="wrap nav-inner">
-    <a href="#home" class="brand" aria-label="Faith First Fitness home">
-      <!-- LOGO: swap this <svg> for <img src="logo.png" alt="Faith First Fitness"> when the real logo is ready -->
-      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fun Freddie">
-        <circle cx="40" cy="40" r="38" fill="#16164a"/>
-        <!-- ears -->
-        <ellipse cx="31" cy="22" rx="6" ry="15" fill="#c98a5e" transform="rotate(-12 31 22)"/>
-        <ellipse cx="49" cy="22" rx="6" ry="15" fill="#c98a5e" transform="rotate(12 49 22)"/>
-        <ellipse cx="31" cy="22" rx="2.6" ry="9" fill="#ffd9c2" transform="rotate(-12 31 22)"/>
-        <ellipse cx="49" cy="22" rx="2.6" ry="9" fill="#ffd9c2" transform="rotate(12 49 22)"/>
+    <a href="#home" class="brand" aria-label="Faith First Fitness — home">
+      <!-- ===========================================================
+           LOGO SLOT — drop the REAL logo at  /assets/logo.png  (or .svg)
+           in the repo and it appears here automatically. Until then,
+           the hand-drawn Fun Freddie badge below shows as a fallback.
+           (If your logo already spells out "Faith First Fitness", you
+           can delete the <span class="brand-word"> block just below.)
+           =========================================================== -->
+      <span class="logo-slot">
+        <img src="/assets/logo.png" alt="" class="logo-img"
+             onload="this.nextElementSibling.style.display='none';"
+             onerror="this.remove();" />
+        <svg class="logo-fallback" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="40" cy="40" r="38" fill="#1a1370"/>
+        <!-- body bumps peeking -->
+        <circle cx="29" cy="64" r="11" fill="#ff6a00"/>
+        <circle cx="49" cy="62" r="12" fill="#00b3ff"/>
+        <!-- antennae -->
+        <path d="M33 24 q-3 -9 -9 -11" stroke="#ff3d9a" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        <path d="M47 24 q3 -9 9 -11" stroke="#ff3d9a" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        <circle cx="23" cy="12" r="3.4" fill="#ffd000"/>
+        <circle cx="57" cy="12" r="3.4" fill="#19d36b"/>
         <!-- head -->
-        <circle cx="40" cy="45" r="18" fill="#d99a6c"/>
+        <circle cx="40" cy="40" r="20" fill="#9fe800"/>
         <!-- headband -->
-        <rect x="22" y="36" width="36" height="5" rx="2.5" fill="#ff4d4d"/>
+        <rect x="21" y="28" width="38" height="6" rx="3" fill="#ff2d4d"/>
         <!-- eyes -->
-        <circle cx="34" cy="45" r="2.6" fill="#16164a"/>
-        <circle cx="46" cy="45" r="2.6" fill="#16164a"/>
-        <circle cx="34.9" cy="44.2" r=".8" fill="#fff"/>
-        <circle cx="46.9" cy="44.2" r=".8" fill="#fff"/>
-        <!-- nose + smile -->
-        <path d="M38 50 h4 l-2 2.4 z" fill="#ff5fb0"/>
-        <path d="M34 53 q6 5 12 0" stroke="#7a4a2a" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <!-- teeth -->
-        <rect x="38.4" y="53.6" width="3.2" height="3.4" rx="1" fill="#fff"/>
-      </svg>
+        <circle cx="34" cy="41" r="4" fill="#fff"/>
+        <circle cx="46" cy="41" r="4" fill="#fff"/>
+        <circle cx="35" cy="42" r="2.1" fill="#1a1370"/>
+        <circle cx="47" cy="42" r="2.1" fill="#1a1370"/>
+        <!-- smile -->
+        <path d="M34 49 q6 6 12 0" stroke="#3a7a00" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </span>
       <span class="brand-word">FAITH FIRST<br/>FITNESS<small>FUN FREDDIE</small></span>
     </a>
 
@@ -273,7 +353,7 @@
       <a class="nav-phone" href="tel:+16789147132">📞 (678) 914-7132</a>
       <a class="btn btn-primary" href="#contact">Join the Fun</a>
     </nav>
-    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">☰</button>
   </div>
 </header>
 
@@ -301,45 +381,64 @@
         <path fill="#ff7a2f" d="M310 80c100 0 200 60 215 165s-35 215-140 250-240 10-285-95 0-240 80-285c40-20 85-35 130-35z" opacity=".16"/>
       </svg>
 
-      <!-- Fun Freddie mascot illustration (placeholder artwork — swap for real mascot art anytime) -->
-      <svg class="mascot" viewBox="0 0 360 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fun Freddie the fitness bunny">
-        <!-- ears -->
-        <ellipse cx="150" cy="70" rx="26" ry="64" fill="#d99a6c" transform="rotate(-10 150 70)"/>
-        <ellipse cx="214" cy="70" rx="26" ry="64" fill="#d99a6c" transform="rotate(10 214 70)"/>
-        <ellipse cx="150" cy="74" rx="11" ry="40" fill="#ffd9c2" transform="rotate(-10 150 74)"/>
-        <ellipse cx="214" cy="74" rx="11" ry="40" fill="#ffd9c2" transform="rotate(10 214 74)"/>
-        <!-- body -->
-        <rect x="118" y="210" width="128" height="150" rx="50" fill="#36c46b"/>
-        <rect x="118" y="210" width="128" height="60" rx="30" fill="#2bb3ff"/>
-        <!-- arms (one flexing up) -->
-        <path d="M236 230 q56 -10 44 -70 q-3 -18 -22 -14 q-16 4 -10 22 q6 22 -30 30 z" fill="#d99a6c"/>
-        <circle cx="262" cy="150" r="16" fill="#d99a6c"/>
-        <path d="M120 240 q-44 6 -40 56 q2 16 18 12 q12 -4 8 -18 q-4 -16 26 -22 z" fill="#d99a6c"/>
-        <!-- legs -->
-        <rect x="138" y="350" width="34" height="46" rx="16" fill="#d99a6c"/>
-        <rect x="192" y="350" width="34" height="46" rx="16" fill="#d99a6c"/>
-        <ellipse cx="150" cy="402" rx="26" ry="14" fill="#ff4d4d"/>
-        <ellipse cx="214" cy="402" rx="26" ry="14" fill="#ff4d4d"/>
+      <!-- Fun Freddie the fitness caterpillar (placeholder artwork — swap for real mascot art anytime) -->
+      <svg class="mascot" viewBox="0 0 360 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fun Freddie the fitness caterpillar">
+        <!-- ground shadow -->
+        <ellipse cx="184" cy="424" rx="120" ry="15" fill="#1a1370" opacity=".10"/>
+        <!-- little legs -->
+        <g fill="#1a1370" opacity=".85">
+          <rect x="90" y="392" width="10" height="22" rx="5"/>
+          <rect x="138" y="404" width="10" height="22" rx="5"/>
+          <rect x="216" y="392" width="10" height="22" rx="5"/>
+          <rect x="118" y="330" width="10" height="22" rx="5"/>
+          <rect x="236" y="332" width="10" height="22" rx="5"/>
+        </g>
+        <!-- body segments, tail to front (rainbow) -->
+        <circle cx="116" cy="384" r="40" fill="#ff3d9a"/>
+        <circle cx="170" cy="356" r="46" fill="#ff6a00"/>
+        <circle cx="210" cy="316" r="50" fill="#ffd000"/>
+        <circle cx="158" cy="276" r="54" fill="#19d36b"/>
+        <circle cx="196" cy="226" r="58" fill="#00b3ff"/>
+        <!-- segment shine -->
+        <g fill="#fff" opacity=".22">
+          <ellipse cx="104" cy="372" rx="12" ry="9"/>
+          <ellipse cx="158" cy="344" rx="13" ry="10"/>
+          <ellipse cx="198" cy="304" rx="14" ry="11"/>
+          <ellipse cx="146" cy="264" rx="15" ry="12"/>
+          <ellipse cx="182" cy="212" rx="16" ry="13"/>
+        </g>
+        <!-- number on front segment -->
+        <text x="196" y="244" font-family="Baloo 2,sans-serif" font-size="50" font-weight="800" fill="#fff" text-anchor="middle">1</text>
+        <!-- flexing arm -->
+        <path d="M250 218 q44 -6 40 -50 q-3 -16 -20 -12 q-14 4 -9 19 q5 17 -25 22 z" fill="#00b3ff"/>
+        <circle cx="270" cy="164" r="15" fill="#00b3ff"/>
+        <circle cx="266" cy="160" r="5" fill="#fff" opacity=".25"/>
+        <!-- ===== HEAD ===== -->
+        <!-- antennae -->
+        <path d="M152 62 q-12 -26 -28 -34" stroke="#9b30ff" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <path d="M212 62 q12 -26 28 -34" stroke="#9b30ff" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <circle cx="122" cy="26" r="11" fill="#ffd000"/>
+        <circle cx="242" cy="26" r="11" fill="#ff3d9a"/>
         <!-- head -->
-        <circle cx="182" cy="160" r="62" fill="#d99a6c"/>
+        <circle cx="182" cy="116" r="74" fill="#9fe800"/>
         <!-- headband -->
-        <rect x="124" y="132" width="116" height="16" rx="8" fill="#ff4d4d"/>
-        <rect x="124" y="132" width="116" height="6" rx="3" fill="#ffd23f"/>
+        <rect x="116" y="74" width="132" height="20" rx="10" fill="#ff2d4d"/>
+        <rect x="116" y="74" width="132" height="7" rx="3.5" fill="#ffd000"/>
         <!-- cheeks -->
-        <circle cx="150" cy="178" r="9" fill="#ff9aa6" opacity=".6"/>
-        <circle cx="214" cy="178" r="9" fill="#ff9aa6" opacity=".6"/>
+        <circle cx="144" cy="140" r="11" fill="#ff3d9a" opacity=".5"/>
+        <circle cx="220" cy="140" r="11" fill="#ff3d9a" opacity=".5"/>
         <!-- eyes -->
-        <circle cx="160" cy="162" r="8" fill="#16164a"/>
-        <circle cx="204" cy="162" r="8" fill="#16164a"/>
-        <circle cx="162.6" cy="159" r="2.6" fill="#fff"/>
-        <circle cx="206.6" cy="159" r="2.6" fill="#fff"/>
+        <circle cx="160" cy="118" r="14" fill="#fff"/>
+        <circle cx="204" cy="118" r="14" fill="#fff"/>
+        <circle cx="163" cy="120" r="7.5" fill="#1a1370"/>
+        <circle cx="207" cy="120" r="7.5" fill="#1a1370"/>
+        <circle cx="166" cy="116" r="2.6" fill="#fff"/>
+        <circle cx="210" cy="116" r="2.6" fill="#fff"/>
         <!-- nose + smile -->
-        <path d="M176 176 h12 l-6 7 z" fill="#ff5fb0"/>
-        <path d="M166 184 q16 14 32 0" stroke="#7a4a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
-        <rect x="176" y="186" width="6" height="8" rx="2" fill="#fff"/>
-        <rect x="183" y="186" width="6" height="8" rx="2" fill="#fff"/>
-        <!-- number on shirt -->
-        <text x="182" y="320" font-family="Baloo 2,sans-serif" font-size="58" font-weight="800" fill="#fff" text-anchor="middle">1</text>
+        <ellipse cx="182" cy="138" rx="6" ry="4.5" fill="#ff2d4d"/>
+        <path d="M162 150 q20 22 40 0" stroke="#3a7a00" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <rect x="176" y="152" width="6" height="9" rx="2" fill="#fff"/>
+        <rect x="183" y="152" width="6" height="9" rx="2" fill="#fff"/>
       </svg>
 
       <div class="float-badge fb1"><span class="ico" style="background:#ffe7d1">🏃</span> Obstacle Courses</div>
@@ -390,39 +489,62 @@
   <div class="wrap freddie-grid">
     <div class="freddie-art">
       <div class="ring"></div>
-      <svg class="mascot" viewBox="0 0 360 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fun Freddie waving">
-        <ellipse cx="150" cy="70" rx="26" ry="64" fill="#d99a6c" transform="rotate(-10 150 70)"/>
-        <ellipse cx="214" cy="70" rx="26" ry="64" fill="#d99a6c" transform="rotate(10 214 70)"/>
-        <ellipse cx="150" cy="74" rx="11" ry="40" fill="#ffd9c2" transform="rotate(-10 150 74)"/>
-        <ellipse cx="214" cy="74" rx="11" ry="40" fill="#ffd9c2" transform="rotate(10 214 74)"/>
-        <rect x="118" y="210" width="128" height="150" rx="50" fill="#8a5cff"/>
-        <rect x="118" y="210" width="128" height="60" rx="30" fill="#ff5fb0"/>
-        <path d="M236 230 q56 -10 44 -70 q-3 -18 -22 -14 q-16 4 -10 22 q6 22 -30 30 z" fill="#d99a6c"/>
-        <circle cx="262" cy="150" r="16" fill="#d99a6c"/>
-        <path d="M120 240 q-44 6 -40 56 q2 16 18 12 q12 -4 8 -18 q-4 -16 26 -22 z" fill="#d99a6c"/>
-        <rect x="138" y="350" width="34" height="46" rx="16" fill="#d99a6c"/>
-        <rect x="192" y="350" width="34" height="46" rx="16" fill="#d99a6c"/>
-        <ellipse cx="150" cy="402" rx="26" ry="14" fill="#2bb3ff"/>
-        <ellipse cx="214" cy="402" rx="26" ry="14" fill="#2bb3ff"/>
-        <circle cx="182" cy="160" r="62" fill="#d99a6c"/>
-        <rect x="124" y="132" width="116" height="16" rx="8" fill="#36c46b"/>
-        <circle cx="150" cy="178" r="9" fill="#ff9aa6" opacity=".6"/>
-        <circle cx="214" cy="178" r="9" fill="#ff9aa6" opacity=".6"/>
-        <circle cx="160" cy="162" r="8" fill="#16164a"/>
-        <circle cx="204" cy="162" r="8" fill="#16164a"/>
-        <circle cx="162.6" cy="159" r="2.6" fill="#fff"/>
-        <circle cx="206.6" cy="159" r="2.6" fill="#fff"/>
-        <path d="M176 176 h12 l-6 7 z" fill="#ff5fb0"/>
-        <path d="M166 184 q16 14 32 0" stroke="#7a4a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
-        <rect x="176" y="186" width="6" height="8" rx="2" fill="#fff"/>
-        <rect x="183" y="186" width="6" height="8" rx="2" fill="#fff"/>
+      <svg class="mascot" viewBox="0 0 360 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fun Freddie the caterpillar waving">
+        <!-- ground shadow -->
+        <ellipse cx="184" cy="424" rx="120" ry="15" fill="#1a1370" opacity=".10"/>
+        <!-- little legs -->
+        <g fill="#1a1370" opacity=".85">
+          <rect x="90" y="392" width="10" height="22" rx="5"/>
+          <rect x="138" y="404" width="10" height="22" rx="5"/>
+          <rect x="216" y="392" width="10" height="22" rx="5"/>
+          <rect x="118" y="330" width="10" height="22" rx="5"/>
+          <rect x="236" y="332" width="10" height="22" rx="5"/>
+        </g>
+        <!-- body segments (rainbow) -->
+        <circle cx="116" cy="384" r="40" fill="#00b3ff"/>
+        <circle cx="170" cy="356" r="46" fill="#9b30ff"/>
+        <circle cx="210" cy="316" r="50" fill="#ff3d9a"/>
+        <circle cx="158" cy="276" r="54" fill="#ff6a00"/>
+        <circle cx="196" cy="226" r="58" fill="#ffd000"/>
+        <g fill="#fff" opacity=".22">
+          <ellipse cx="104" cy="372" rx="12" ry="9"/>
+          <ellipse cx="158" cy="344" rx="13" ry="10"/>
+          <ellipse cx="198" cy="304" rx="14" ry="11"/>
+          <ellipse cx="146" cy="264" rx="15" ry="12"/>
+          <ellipse cx="182" cy="212" rx="16" ry="13"/>
+        </g>
+        <!-- waving arm -->
+        <path d="M250 214 q46 4 52 -42 q3 -17 -15 -18 q-15 -1 -14 16 q1 18 -29 21 z" fill="#ffd000"/>
+        <circle cx="290" cy="158" r="15" fill="#ffd000"/>
+        <circle cx="286" cy="154" r="5" fill="#fff" opacity=".3"/>
+        <!-- antennae -->
+        <path d="M152 62 q-12 -26 -28 -34" stroke="#ff3d9a" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <path d="M212 62 q12 -26 28 -34" stroke="#ff3d9a" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <circle cx="122" cy="26" r="11" fill="#00b3ff"/>
+        <circle cx="242" cy="26" r="11" fill="#19d36b"/>
+        <!-- head -->
+        <circle cx="182" cy="116" r="74" fill="#9fe800"/>
+        <rect x="116" y="74" width="132" height="20" rx="10" fill="#ff2d4d"/>
+        <rect x="116" y="74" width="132" height="7" rx="3.5" fill="#ffd000"/>
+        <circle cx="144" cy="140" r="11" fill="#ff3d9a" opacity=".5"/>
+        <circle cx="220" cy="140" r="11" fill="#ff3d9a" opacity=".5"/>
+        <circle cx="160" cy="118" r="14" fill="#fff"/>
+        <circle cx="204" cy="118" r="14" fill="#fff"/>
+        <circle cx="163" cy="120" r="7.5" fill="#1a1370"/>
+        <circle cx="207" cy="120" r="7.5" fill="#1a1370"/>
+        <circle cx="166" cy="116" r="2.6" fill="#fff"/>
+        <circle cx="210" cy="116" r="2.6" fill="#fff"/>
+        <ellipse cx="182" cy="138" rx="6" ry="4.5" fill="#ff2d4d"/>
+        <path d="M162 150 q20 22 40 0" stroke="#3a7a00" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <rect x="176" y="152" width="6" height="9" rx="2" fill="#fff"/>
+        <rect x="183" y="152" width="6" height="9" rx="2" fill="#fff"/>
       </svg>
     </div>
     <div>
       <span class="kicker">Meet the Mascot</span>
-      <h2>Say hi to Fun Freddie! 🐰</h2>
-      <p>Fun Freddie is the heart of Faith First Fitness — a high-energy bunny who shows kids that getting fit is an adventure, not a chore. Through obstacle courses, the basics of sports, and even a little yoga, Freddie helps kids build fine and gross motor skills, coordination, and balance.</p>
-      <p>Wherever Freddie hops, kids learn that healthy habits, teamwork, and a faith-filled attitude make them unstoppable. His motto? <strong>"I can do it!"</strong></p>
+      <h2>Say hi to Fun Freddie! 🐛</h2>
+      <p>Fun Freddie is the heart of Faith First Fitness — a high-energy caterpillar who shows kids that getting fit is an adventure, not a chore. Through obstacle courses, the basics of sports, and even a little yoga, Freddie helps kids build fine and gross motor skills, coordination, and balance.</p>
+      <p>Wherever Freddie wiggles, kids learn that healthy habits, teamwork, and a faith-filled attitude make them unstoppable. His motto? <strong>"I can do it!"</strong></p>
       <ul>
         <li>🤸 Motor skills</li>
         <li>🧘 Coordination &amp; balance</li>
@@ -483,7 +605,7 @@
       <span class="kicker">Meet the Coach</span>
       <h2>Led with heart by Coach Lucas</h2>
       <p>Coach Datavious Lucas founded Faith First Fitness on a simple belief: every child deserves to feel strong, capable, and loved. As a youth development specialist turned founder, he's made it his mission to fight childhood obesity and build confidence through movement and faith.</p>
-      <p>With a team of high-energy coaches and one very bouncy bunny, Coach Lucas nurtures the physical, emotional, and spiritual health of every kid who walks through the door.</p>
+      <p>With a team of high-energy coaches and one very wiggly caterpillar, Coach Lucas nurtures the physical, emotional, and spiritual health of every kid who walks through the door.</p>
       <div style="margin-top:1.4rem;display:flex;gap:.7rem;flex-wrap:wrap">
         <a class="btn btn-primary" href="#contact">Work With Coach Lucas</a>
         <a class="btn btn-ghost" href="https://www.instagram.com/faithfirstfitness/" target="_blank" rel="noopener">Follow on Instagram</a>
@@ -549,7 +671,7 @@
         <textarea id="message" name="message" placeholder="Tell us about your child and what you're looking for!"></textarea>
       </div>
       <button class="btn btn-primary btn-lg" type="submit" id="submitBtn" style="width:100%;justify-content:center">Send to Coach Lucas 🎉</button>
-      <div class="form-msg" id="formMsg"></div>
+      <div class="form-msg" id="formMsg" role="status" aria-live="polite"></div>
     </form>
   </div>
 </section>
@@ -580,8 +702,14 @@
 <script>
   // mobile menu
   const menuBtn=document.getElementById('menuBtn'), navLinks=document.getElementById('navLinks');
-  menuBtn.addEventListener('click',()=>navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+  function setMenu(open){
+    navLinks.classList.toggle('open',open);
+    menuBtn.setAttribute('aria-expanded',open?'true':'false');
+    menuBtn.setAttribute('aria-label',open?'Close menu':'Open menu');
+  }
+  menuBtn.addEventListener('click',()=>setMenu(!navLinks.classList.contains('open')));
+  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false);});
   document.getElementById('yr').textContent=new Date().getFullYear();
 
   // ===== Supabase lead capture =====
