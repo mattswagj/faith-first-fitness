@@ -267,6 +267,38 @@
     .nav-cta .btn:not(.primary-cta){display:none}
     .stats{gap:18px}
   }
+
+  /* ===== Real event photos ===== */
+  figure{margin:0}
+  .hero-photo{position:relative;width:min(460px,100%);margin:0 auto;border-radius:28px;overflow:hidden;aspect-ratio:4/3;box-shadow:0 30px 70px rgba(0,0,0,.38);border:6px solid rgba(255,255,255,.18)}
+  .hero-photo>img{width:100%;height:100%;object-fit:cover}
+  .photo-band{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+  .photo-band figure{position:relative;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);aspect-ratio:1/1}
+  .photo-band img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+  .photo-band figure:hover img{transform:scale(1.06)}
+  .photo-band figcaption{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(22,22,74,.74));color:#fff;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:.82rem;padding:26px 14px 10px}
+  .event-photo{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);aspect-ratio:3/2;height:100%}
+  .event-photo img{width:100%;height:100%;object-fit:cover}
+  .gallery{background:linear-gradient(180deg,#fff,var(--cream))}
+  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;grid-auto-flow:dense;gap:16px;margin-top:34px}
+  .gallery-grid figure{position:relative;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm)}
+  .gallery-grid img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+  .gallery-grid figure:hover img{transform:scale(1.07)}
+  .gallery-grid figcaption{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(22,22,74,.78));color:#fff;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:.84rem;padding:30px 14px 12px;opacity:0;transition:opacity .25s ease}
+  .gallery-grid figure:hover figcaption,.gallery-grid figure:focus-within figcaption{opacity:1}
+  .gallery-grid .wide{grid-column:span 2}
+  .gallery-grid .tall{grid-row:span 2}
+  .partner-photo{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);aspect-ratio:16/9;margin-top:30px}
+  .partner-photo img{width:100%;height:100%;object-fit:cover}
+  .partner-photo figcaption{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(15,46,74,.85));color:#fff;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:.92rem;padding:34px 18px 14px}
+  @media(max-width:900px){
+    .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}
+  }
+  @media(max-width:680px){
+    .photo-band{grid-template-columns:repeat(2,1fr)}
+    .photo-band figure:last-child{grid-column:span 2;aspect-ratio:16/9}
+    .gallery-grid{grid-auto-rows:150px}
+  }
 </style>
 </head>
 <body>
@@ -284,6 +316,7 @@
         <li><a class="lk" href="#programs">Programs</a></li>
         <li><a class="lk" href="#fruits">Fruits &amp; Freddie</a></li>
         <li><a class="lk" href="#events">Events</a></li>
+        <li><a class="lk" href="#gallery">Gallery</a></li>
         <li><a class="lk" href="#partners">Daycares &amp; Corporate</a></li>
         <li><a class="lk" href="#coach">Coach Lucas</a></li>
         <li><a class="lk" href="tel:+16789147132">📞 (678) 914-7132</a></li>
@@ -317,7 +350,14 @@
       </div>
     </div>
     <div class="hero-badge">
-      <div class="disc"><img src="assets/fun-freddie-logo.png" alt="Fun Freddie — the Faith First Fitness caterpillar mascot" /></div>
+      <figure class="hero-photo">
+        <img src="assets/fff-fieldday-800.webp"
+             srcset="assets/fff-fieldday-800.webp 800w, assets/fff-fieldday-1600.webp 1600w"
+             sizes="(max-width:900px) 90vw, 460px"
+             width="1600" height="1069"
+             alt="Kids racing through an obstacle course while coaches cheer at a Faith First Fitness field day"
+             fetchpriority="high" decoding="async" />
+      </figure>
       <span class="float-pill fp1">🏃 Obstacle fun!</span>
       <span class="float-pill fp2">🙏 Faith first</span>
     </div>
@@ -361,6 +401,22 @@
       <div class="card"><div class="bar b2"></div><div class="ic">🎈</div><span class="tag tag-blue">Ages 3–5</span><h3>Pre-K Playmakers</h3><p>Obstacle courses, balance &amp; teamwork games that get little ones ready for school and sport.</p></div>
       <div class="card"><div class="bar b3"></div><div class="ic">⚽</div><span class="tag tag-pink">Ages 6–12</span><h3>School-Age Stars</h3><p>Sports fundamentals, agility challenges &amp; fitness games that build skills, grit and friendships.</p></div>
       <div class="card"><div class="bar b4"></div><div class="ic">🌟</div><span class="tag tag-green">All Ages</span><h3>Exceptional Needs</h3><p>Caring, adaptive fitness designed so every child — including special-needs kids — can shine and succeed.</p></div>
+    </div>
+
+    <!-- Real program photos -->
+    <div class="photo-band">
+      <figure>
+        <img src="assets/fff-toddler-800.webp" srcset="assets/fff-toddler-800.webp 800w, assets/fff-toddler-1600.webp 1600w" sizes="(max-width:680px) 100vw, 33vw" width="1600" height="1069" loading="lazy" decoding="async" alt="A toddler in a jersey bear-crawls across the turf during a Faith First Fitness session" />
+        <figcaption>Little ones on the move 🧸</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/fff-jump-800.webp" srcset="assets/fff-jump-800.webp 800w, assets/fff-jump-1600.webp 1600w" sizes="(max-width:680px) 100vw, 33vw" width="1600" height="1069" loading="lazy" decoding="async" alt="A child in a headband leaps over an inflatable obstacle as kids and a coach cheer" />
+        <figcaption>Obstacle course challenges 🏃</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/fff-games-800.webp" srcset="assets/fff-games-800.webp 800w, assets/fff-games-1600.webp 1600w" sizes="(max-width:680px) 100vw, 33vw" width="1600" height="1069" loading="lazy" decoding="async" alt="A coach and a child play a foam-baton balance game on the field" />
+        <figcaption>Games that build coordination ⚽</figcaption>
+      </figure>
     </div>
 
     <!-- Daycare Wellness (new service) -->
@@ -461,6 +517,10 @@
       <h2>Come play with us!</h2>
       <p>Faith First Fitness hosts high-energy field days and takeovers across the Atlanta &amp; Gwinnett area. Reserve your spot for the next one!</p>
     </div>
+    <figure class="partner-photo" style="aspect-ratio:2/1">
+      <img src="assets/fff-group-800.webp" srcset="assets/fff-group-800.webp 800w, assets/fff-group-1600.webp 1600w" sizes="(max-width:1140px) 100vw, 1100px" width="1600" height="1069" loading="lazy" decoding="async" alt="A large group of kids and coaches gather behind the Kids field day banner, with a Brazil flag held up, at a Faith First Fitness event" />
+      <figcaption>Faith First Fitness field day — kids, coaches &amp; families together 🎉</figcaption>
+    </figure>
     <div class="event-grid" style="margin-top:30px">
       <div class="feature-event">
         <h3>Atlanta Kids Field Day</h3>
@@ -486,6 +546,47 @@
   </div>
 </section>
 
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">In Action</span>
+      <h2>Moments from the field 📸</h2>
+      <p>Real smiles, real sweat, real "I can do it!" — snapshots from Faith First Fitness field days and events across Atlanta &amp; Gwinnett.</p>
+    </div>
+    <div class="gallery-grid">
+      <figure class="wide">
+        <img src="assets/fff-group-800.webp" srcset="assets/fff-group-800.webp 800w, assets/fff-group-1600.webp 1600w" sizes="(max-width:680px) 100vw, (max-width:900px) 100vw, 50vw" width="1600" height="1069" loading="lazy" decoding="async" alt="Group photo of kids and coaches behind the field day banner with a Brazil flag" />
+        <figcaption>Field day crew 🎉</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/fff-waterplay-800.webp" srcset="assets/fff-waterplay-800.webp 800w, assets/fff-waterplay-1600.webp 1600w" sizes="(max-width:680px) 50vw, 25vw" width="1600" height="1069" loading="lazy" decoding="async" alt="Kids playing with water toys in an inflatable pool at an outdoor event" />
+        <figcaption>Water-play fun 💦</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/fff-hydration-800.webp" srcset="assets/fff-hydration-800.webp 800w, assets/fff-hydration-1600.webp 1600w" sizes="(max-width:680px) 50vw, 25vw" width="1600" height="1069" loading="lazy" decoding="async" alt="A young girl in a rainbow dress sips a drink at the hydration table" />
+        <figcaption>Staying hydrated 🥤</figcaption>
+      </figure>
+      <figure class="tall">
+        <img src="assets/fff-jump-800.webp" srcset="assets/fff-jump-800.webp 800w, assets/fff-jump-1600.webp 1600w" sizes="(max-width:680px) 50vw, 25vw" width="1600" height="1069" loading="lazy" decoding="async" alt="A child leaps over an inflatable obstacle while others watch" />
+        <figcaption>Big air on the obstacle course 🏃</figcaption>
+      </figure>
+      <figure class="wide">
+        <img src="assets/fff-fieldday-800.webp" srcset="assets/fff-fieldday-800.webp 800w, assets/fff-fieldday-1600.webp 1600w" sizes="(max-width:680px) 100vw, 50vw" width="1600" height="1069" loading="lazy" decoding="async" alt="Kids bear-crawl through a marker course as coaches cheer them on" />
+        <figcaption>Obstacle course relays 🟢</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/fff-games-800.webp" srcset="assets/fff-games-800.webp 800w, assets/fff-games-1600.webp 1600w" sizes="(max-width:680px) 50vw, 25vw" width="1600" height="1069" loading="lazy" decoding="async" alt="A coach and a child play a foam-baton balance game on the turf" />
+        <figcaption>Balance &amp; teamwork games 🤸</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/fff-toddler-800.webp" srcset="assets/fff-toddler-800.webp 800w, assets/fff-toddler-1600.webp 1600w" sizes="(max-width:680px) 50vw, 25vw" width="1600" height="1069" loading="lazy" decoding="async" alt="A toddler bear-crawls across the turf during a session" />
+        <figcaption>Tiny Tots, big effort 🧸</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- FOR DAYCARES & CORPORATE PARTNERS -->
 <section class="partners" id="partners">
   <div class="wrap">
@@ -499,6 +600,10 @@
       <div class="pcard"><div class="ic" style="font-size:1.8rem">🏢</div><h3>Corporate Partners</h3><p>Sponsor a field day, fund scholarships, or host a family wellness event. Great for community impact, team-building, and employee families.</p></div>
       <div class="pcard"><div class="ic" style="font-size:1.8rem">🤝</div><h3>Door-to-Door Outreach</h3><p>We actively canvass communities across the metro so more kids can say "I can do it!" — neighborhood by neighborhood.</p></div>
     </div>
+    <figure class="partner-photo">
+      <img src="assets/fff-hydration-800.webp" srcset="assets/fff-hydration-800.webp 800w, assets/fff-hydration-1600.webp 1600w" sizes="(max-width:1140px) 100vw, 1100px" width="1600" height="1069" loading="lazy" decoding="async" alt="Kids and families gather at a community event table during a Faith First Fitness field day" />
+      <figcaption>We come to you — daycares, schools &amp; community events across metro Atlanta 🚪</figcaption>
+    </figure>
     <p style="margin-top:26px;font-weight:800;color:#fff">Now serving across metro Atlanta:</p>
     <div class="metro">
       <span class="chip">DeKalb County</span>
@@ -643,6 +748,7 @@
           <a href="#fruits">Fruits &amp; Freddie</a>
           <a href="#freddie">Fun Freddie</a>
           <a href="#events">Events</a>
+          <a href="#gallery">Gallery</a>
           <a href="#partners">Daycares &amp; Corporate</a>
           <a href="#faq">FAQ</a>
           <a href="#coach">Coach Lucas</a>
