@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#16164a" />
+<title>Faith First Fitness — Owner Portal</title>
+<link rel="icon" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<style>
+  :root{ --navy:#16164a; --orange:#ff6a2b; --ink:#1f2340; --line:#e6e8f2; --bg:#f6f7fb; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+  header{background:var(--navy);color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  header h1{font-size:1.05rem;margin:0;font-weight:700}
+  .muted{color:#8a90ad;font-size:.85rem}
+  .wrap{max-width:1000px;margin:0 auto;padding:18px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 6px 24px rgba(20,20,60,.05)}
+  label{display:block;font-size:.82rem;font-weight:600;margin:10px 0 4px}
+  input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:1rem}
+  button{cursor:pointer;border:0;border-radius:10px;padding:11px 16px;font-weight:700;font-size:.95rem}
+  .btn-primary{background:var(--orange);color:#fff}
+  .btn-ghost{background:#eef0f7;color:var(--ink)}
+  .btn-sm{padding:7px 11px;font-size:.82rem}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  table{width:100%;border-collapse:collapse;font-size:.9rem}
+  th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{position:sticky;top:0;background:#fff;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:#6b7192}
+  .pill{display:inline-block;background:#eef0f7;border-radius:999px;padding:2px 8px;font-size:.75rem}
+  .err{color:#c02626;font-size:.88rem;margin-top:8px}
+  .ok{color:#128a3a;font-size:.88rem;margin-top:8px}
+  .hide{display:none}
+  .tablewrap{max-height:66vh;overflow:auto;border:1px solid var(--line);border-radius:12px}
+  a.small{color:var(--orange);font-size:.82rem}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏅 Faith First Fitness — Owner Portal</h1>
+  <div class="row" id="sessBar"></div>
+</header>
+
+<div class="wrap">
+
+  <!-- LOGIN -->
+  <div id="loginView" class="card hide" style="max-width:420px;margin:6vh auto">
+    <h2 style="margin-top:0">Owner sign in</h2>
+    <p class="muted">Private area. Sign in with your owner account to view leads.</p>
+    <form id="loginForm" autocomplete="on">
+      <label for="email">Email</label>
+      <input id="email" type="email" autocomplete="username" required />
+      <label for="password">Password</label>
+      <input id="password" type="password" autocomplete="current-password" required />
+      <div style="margin-top:14px"><button class="btn-primary" style="width:100%" type="submit">Sign in</button></div>
+      <div id="loginMsg" class="err"></div>
+    </form>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashView" class="hide">
+    <div class="card" style="margin-bottom:16px">
+      <div class="row" style="justify-content:space-between">
+        <div>
+          <strong id="leadCount">Leads</strong>
+          <span class="muted" id="lastSync"></span>
+        </div>
+        <div class="row">
+          <button id="notifyBtn" class="btn-ghost btn-sm">🔔 Enable alerts</button>
+          <button id="refreshBtn" class="btn-ghost btn-sm">↻ Refresh</button>
+          <button id="pwChangeBtn" class="btn-ghost btn-sm">Change password</button>
+        </div>
+      </div>
+      <div id="pwPanel" class="hide" style="margin-top:12px">
+        <div class="row" style="align-items:flex-end">
+          <div style="flex:1;min-width:220px">
+            <label for="newpw">New password (min 10 chars)</label>
+            <input id="newpw" type="password" />
+          </div>
+          <button id="pwSaveBtn" class="btn-primary btn-sm">Update</button>
+        </div>
+        <div id="pwMsg"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div id="leadsMsg" class="muted">Loading leads…</div>
+      <div class="tablewrap"><table id="leadsTable" class="hide">
+        <thead><tr>
+          <th>Received</th><th>Name</th><th>Email</th><th>Phone</th><th>Child age</th><th>Interest</th><th>Message</th>
+        </tr></thead>
+        <tbody id="leadsBody"></tbody>
+      </table></div>
+    </div>
+  </div>
+
+</div>
+
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  const SUPABASE_URL = 'https://iquwylyezprcejgvmnwd.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_xtsrz6wKWkdRdXvhz9vgAg_EkweEzoG';
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => (s == null ? '' : String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])));
+  const fmt = (t) => { try { return new Date(t).toLocaleString(); } catch(e){ return t; } };
+
+  function show(view){
+    $('loginView').classList.toggle('hide', view !== 'login');
+    $('dashView').classList.toggle('hide', view !== 'dash');
+  }
+
+  // ---- Auth ----
+  $('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    $('loginMsg').textContent = '';
+    const { error } = await supabase.auth.signInWithPassword({
+      email: $('email').value.trim(),
+      password: $('password').value
+    });
+    if (error) { $('loginMsg').textContent = error.message; }
+  });
+
+  async function renderSessionBar(session){
+    const bar = $('sessBar');
+    if (session){
+      bar.innerHTML = '<span class="muted">'+esc(session.user.email)+'</span> <button id="logoutBtn" class="btn-ghost btn-sm">Sign out</button>';
+      $('logoutBtn').onclick = () => supabase.auth.signOut();
+    } else { bar.innerHTML = ''; }
+  }
+
+  supabase.auth.onAuthStateChange((_ev, session) => { boot(session); });
+
+  let realtimeChannel = null;
+  async function boot(session){
+    await renderSessionBar(session);
+    if (!session){ show('login'); if (realtimeChannel){ supabase.removeChannel(realtimeChannel); realtimeChannel=null; } return; }
+    show('dash');
+    await loadLeads();
+    subscribeRealtime();
+  }
+
+  // ---- Leads ----
+  async function loadLeads(){
+    $('leadsMsg').textContent = 'Loading leads…';
+    const { data, error } = await supabase.from('leads').select('*').order('created_at', { ascending: false });
+    if (error){
+      $('leadsMsg').textContent = 'Could not load leads: ' + error.message + ' (is this account an owner/admin?)';
+      $('leadsTable').classList.add('hide');
+      return;
+    }
+    $('leadsMsg').classList.add('hide');
+    $('leadsTable').classList.remove('hide');
+    $('leadCount').textContent = data.length + ' lead' + (data.length===1?'':'s');
+    $('lastSync').textContent = ' · synced ' + new Date().toLocaleTimeString();
+    $('leadsBody').innerHTML = data.map(rowHtml).join('');
+  }
+
+  function rowHtml(r){
+    return '<tr>'+
+      '<td>'+esc(fmt(r.created_at))+'</td>'+
+      '<td>'+esc(r.name)+'</td>'+
+      '<td>'+(r.email?'<a href="mailto:'+esc(r.email)+'">'+esc(r.email)+'</a>':'')+'</td>'+
+      '<td>'+(r.phone?'<a href="tel:'+esc(r.phone)+'">'+esc(r.phone)+'</a>':'')+'</td>'+
+      '<td>'+esc(r.child_age)+'</td>'+
+      '<td>'+(r.interest?'<span class="pill">'+esc(r.interest)+'</span>':'')+'</td>'+
+      '<td>'+esc(r.message)+'</td>'+
+    '</tr>';
+  }
+
+  // ---- Realtime new-lead notifications ----
+  function subscribeRealtime(){
+    if (realtimeChannel) return;
+    realtimeChannel = supabase
+      .channel('leads-inserts')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'leads' }, (payload) => {
+        const r = payload.new;
+        $('leadsBody').insertAdjacentHTML('afterbegin', rowHtml(r));
+        notify(r);
+      })
+      .subscribe();
+  }
+
+  function notify(r){
+    const title = 'New lead: ' + (r.name || 'Someone');
+    const body = [r.interest, r.phone, r.email].filter(Boolean).join(' · ') || 'Tap to view in the Owner Portal';
+    if ('Notification' in window && Notification.permission === 'granted'){
+      try { new Notification(title, { body, icon: '/icon-192.png', tag: 'fff-lead-'+(r.id||Date.now()) }); } catch(e){}
+    }
+    // audible + visible fallback
+    try { document.title = '● ' + title; } catch(e){}
+  }
+
+  $('notifyBtn').addEventListener('click', async () => {
+    if (!('Notification' in window)){ alert('This browser does not support notifications.'); return; }
+    const perm = await Notification.requestPermission();
+    $('notifyBtn').textContent = perm === 'granted' ? '🔔 Alerts on' : '🔕 Alerts blocked';
+  });
+
+  $('refreshBtn').addEventListener('click', loadLeads);
+
+  // ---- Change password ----
+  $('pwChangeBtn').addEventListener('click', () => $('pwPanel').classList.toggle('hide'));
+  $('pwSaveBtn').addEventListener('click', async () => {
+    const pw = $('newpw').value;
+    $('pwMsg').className=''; $('pwMsg').textContent='';
+    if (!pw || pw.length < 10){ $('pwMsg').className='err'; $('pwMsg').textContent='Use at least 10 characters.'; return; }
+    const { error } = await supabase.auth.updateUser({ password: pw });
+    if (error){ $('pwMsg').className='err'; $('pwMsg').textContent=error.message; }
+    else { $('pwMsg').className='ok'; $('pwMsg').textContent='Password updated.'; $('newpw').value=''; }
+  });
+
+  // ---- Init ----
+  (async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    boot(session);
+    if ('Notification' in window && Notification.permission === 'granted') $('notifyBtn').textContent = '🔔 Alerts on';
+  })();
+</script>
+</body>
+</html>
