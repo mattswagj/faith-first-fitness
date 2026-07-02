@@ -308,6 +308,11 @@
     .gallery-grid{grid-auto-rows:150px}
   }
 </style>
+<link rel="manifest" href="/manifest.json" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="FFF Kids" />
 </head>
 <body>
 <a href="#home" class="skip">Skip to main content</a>
@@ -696,6 +701,7 @@
     </div>
     <div class="form-card">
       <form id="leadForm" novalidate>
+        <div aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden"><label>Do not fill this field<input id="company_website" type="text" tabindex="-1" autocomplete="off" /></label></div>
         <div class="field"><label for="name">Parent / Guardian name *</label><input id="name" name="name" type="text" required placeholder="Your name" /></div>
         <div class="form-row">
           <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@email.com" /></div>
@@ -722,6 +728,7 @@
         <div class="field"><label for="message">Message</label><textarea id="message" name="message" placeholder="Tell us about your child and what you're looking for…"></textarea></div>
         <button type="submit" id="submitBtn" class="btn btn-orange" style="width:100%">Send to Coach Lucas 🎉</button>
         <div id="formMsg"></div>
+        <p style="margin-top:10px;font-size:.8rem;color:#6b6f8a;line-height:1.4">🔒 By submitting, you agree we may contact you about Faith First Fitness programs. We never sell or share your information.</p>
       </form>
     </div>
   </div>
@@ -867,7 +874,7 @@
   document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
 
   // Contact form -> Supabase REST (leads)
-  const SUPABASE_URL = 'https://alebrgmhuemsvcjdiqth.supabase.co';
+  const SUPABASE_URL="https://iquwylyezprcejgvmnwd.supabase.co";
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFsZWJyZ21odWVtc3ZjamRpcXRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0MDY1OTYsImV4cCI6MjA5Njk4MjU5Nn0.c5rXXHipkVgG7HXcOPSw-P47JcCwqirzIjyuH1Y9NUc';
   const leadForm = document.getElementById('leadForm');
   const formMsg = document.getElementById('formMsg');
@@ -917,6 +924,26 @@
       submitBtn.textContent = original;
     }
   });
+</script>
+<script>
+(function(){
+  if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ navigator.serviceWorker.register("/sw.js").catch(function(){}); }); }
+  var form = document.getElementById("leadForm");
+  if (!form) return;
+  var msg = document.getElementById("formMsg");
+  function stop(e, t){ e.preventDefault(); e.stopImmediatePropagation(); if (msg && t){ msg.textContent = t; msg.style.color = "#c0392b"; } }
+  form.addEventListener("submit", function(e){
+    var hp = document.getElementById("company_website");
+    if (hp && hp.value.trim() !== "") { return stop(e); }
+    var g = function(id){ var el = document.getElementById(id); return el ? el.value.trim() : ""; };
+    var name = g("name"), email = g("email"), phone = g("phone"), message = g("message"), childAge = g("child_age");
+    if (name.length < 2 || name.length > 120) return stop(e, "Please enter your name.");
+    if (email && (email.length > 200 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))) return stop(e, "Please enter a valid email address.");
+    if (phone.length > 40) return stop(e, "That phone number looks too long.");
+    if (childAge.length > 60) return stop(e, "Child age is too long.");
+    if (message.length > 4000) return stop(e, "Please shorten your message (4000 characters max).");
+  }, true);
+})();
 </script>
 </body>
 </html>
