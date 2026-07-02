@@ -23,7 +23,6 @@
   .btn-primary{background:var(--orange);color:#fff}
   .btn-ghost{background:#eef0f7;color:var(--ink)}
   .btn-sm{padding:7px 11px;font-size:.82rem}
-  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
   table{width:100%;border-collapse:collapse;font-size:.9rem}
   th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
   th{position:sticky;top:0;background:#fff;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:#6b7192}
@@ -32,7 +31,9 @@
   .ok{color:#128a3a;font-size:.88rem;margin-top:8px}
   .hide{display:none}
   .tablewrap{max-height:66vh;overflow:auto;border:1px solid var(--line);border-radius:12px}
-  a.small{color:var(--orange);font-size:.82rem}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px;background:#bbb}
+  .dot.live{background:#22c55e}
 </style>
 </head>
 <body>
@@ -42,7 +43,6 @@
 </header>
 
 <div class="wrap">
-
   <!-- LOGIN -->
   <div id="loginView" class="card hide" style="max-width:420px;margin:6vh auto">
     <h2 style="margin-top:0">Owner sign in</h2>
@@ -64,6 +64,7 @@
         <div>
           <strong id="leadCount">Leads</strong>
           <span class="muted" id="lastSync"></span>
+          <span class="muted" style="margin-left:8px"><span id="liveDot" class="dot"></span><span id="liveTxt">connecting…</span></span>
         </div>
         <div class="row">
           <button id="notifyBtn" class="btn-ghost btn-sm">🔔 Enable alerts</button>
@@ -93,69 +94,87 @@
       </table></div>
     </div>
   </div>
-
 </div>
 
-<script type="module">
-  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+<script>
+(function(){
+  var SUPABASE_URL = 'https://iquwylyezprcejgvmnwd.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_xtsrz6wKWkdRdXvhz9vgAg_EkweEzoG';
+  var REF = 'iquwylyezprcejgvmnwd';
+  var TOKEN_STORE = 'fff_owner_session';
 
-  const SUPABASE_URL = 'https://iquwylyezprcejgvmnwd.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_xtsrz6wKWkdRdXvhz9vgAg_EkweEzoG';
-  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+  var $ = function(id){ return document.getElementById(id); };
+  var esc = function(s){ return s==null?'':String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); };
+  var fmt = function(t){ try{ return new Date(t).toLocaleString(); }catch(e){ return t; } };
 
-  const $ = (id) => document.getElementById(id);
-  const esc = (s) => (s == null ? '' : String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])));
-  const fmt = (t) => { try { return new Date(t).toLocaleString(); } catch(e){ return t; } };
+  var session = null;
+  var seenIds = {};
+
+  function loadSession(){ try{ session = JSON.parse(localStorage.getItem(TOKEN_STORE)||'null'); }catch(e){ session=null; } }
+  function saveSession(s){ session=s; try{ localStorage.setItem(TOKEN_STORE, JSON.stringify(s)); }catch(e){} }
+  function clearSession(){ session=null; try{ localStorage.removeItem(TOKEN_STORE); }catch(e){} }
+
+  function authHeaders(){ return { 'apikey':SUPABASE_KEY, 'Authorization':'Bearer '+(session?session.access_token:SUPABASE_KEY), 'Content-Type':'application/json' }; }
 
   function show(view){
-    $('loginView').classList.toggle('hide', view !== 'login');
-    $('dashView').classList.toggle('hide', view !== 'dash');
+    $('loginView').classList.toggle('hide', view!=='login');
+    $('dashView').classList.toggle('hide', view!=='dash');
   }
 
-  // ---- Auth ----
-  $('loginForm').addEventListener('submit', async (e) => {
+  // ---------- Auth ----------
+  $('loginForm').addEventListener('submit', async function(e){
     e.preventDefault();
-    $('loginMsg').textContent = '';
-    const { error } = await supabase.auth.signInWithPassword({
-      email: $('email').value.trim(),
-      password: $('password').value
-    });
-    if (error) { $('loginMsg').textContent = error.message; }
+    $('loginMsg').textContent='';
+    try{
+      var res = await fetch(SUPABASE_URL+'/auth/v1/token?grant_type=password', {
+        method:'POST', headers:{'apikey':SUPABASE_KEY,'Content-Type':'application/json'},
+        body: JSON.stringify({ email:$('email').value.trim(), password:$('password').value })
+      });
+      var data = await res.json();
+      if(!res.ok){ $('loginMsg').textContent = data.error_description || data.msg || 'Sign in failed.'; return; }
+      saveSession({ access_token:data.access_token, refresh_token:data.refresh_token, user:data.user });
+      boot();
+    }catch(err){ $('loginMsg').textContent = 'Network error — please try again.'; }
   });
 
-  async function renderSessionBar(session){
-    const bar = $('sessBar');
-    if (session){
+  function renderSessionBar(){
+    var bar = $('sessBar');
+    if(session && session.user){
       bar.innerHTML = '<span class="muted">'+esc(session.user.email)+'</span> <button id="logoutBtn" class="btn-ghost btn-sm">Sign out</button>';
-      $('logoutBtn').onclick = () => supabase.auth.signOut();
-    } else { bar.innerHTML = ''; }
+      $('logoutBtn').onclick = function(){ closeRealtime(); clearSession(); boot(); };
+    } else { bar.innerHTML=''; }
   }
 
-  supabase.auth.onAuthStateChange((_ev, session) => { boot(session); });
-
-  let realtimeChannel = null;
-  async function boot(session){
-    await renderSessionBar(session);
-    if (!session){ show('login'); if (realtimeChannel){ supabase.removeChannel(realtimeChannel); realtimeChannel=null; } return; }
-    show('dash');
-    await loadLeads();
-    subscribeRealtime();
+  async function refreshToken(){
+    if(!session || !session.refresh_token) return false;
+    try{
+      var res = await fetch(SUPABASE_URL+'/auth/v1/token?grant_type=refresh_token', {
+        method:'POST', headers:{'apikey':SUPABASE_KEY,'Content-Type':'application/json'},
+        body: JSON.stringify({ refresh_token: session.refresh_token })
+      });
+      if(!res.ok) return false;
+      var data = await res.json();
+      saveSession({ access_token:data.access_token, refresh_token:data.refresh_token, user:data.user||session.user });
+      return true;
+    }catch(e){ return false; }
   }
 
-  // ---- Leads ----
-  async function loadLeads(){
-    $('leadsMsg').textContent = 'Loading leads…';
-    const { data, error } = await supabase.from('leads').select('*').order('created_at', { ascending: false });
-    if (error){
-      $('leadsMsg').textContent = 'Could not load leads: ' + error.message + ' (is this account an owner/admin?)';
-      $('leadsTable').classList.add('hide');
-      return;
-    }
-    $('leadsMsg').classList.add('hide');
-    $('leadsTable').classList.remove('hide');
-    $('leadCount').textContent = data.length + ' lead' + (data.length===1?'':'s');
-    $('lastSync').textContent = ' · synced ' + new Date().toLocaleTimeString();
-    $('leadsBody').innerHTML = data.map(rowHtml).join('');
+  // ---------- Leads ----------
+  async function loadLeads(isPoll){
+    if(!session) return;
+    try{
+      var res = await fetch(SUPABASE_URL+'/rest/v1/leads?select=*&order=created_at.desc', { headers: authHeaders() });
+      if(res.status===401){ var ok = await refreshToken(); if(ok){ return loadLeads(isPoll); } clearSession(); boot(); return; }
+      if(!res.ok){ $('leadsMsg').textContent='Could not load leads (HTTP '+res.status+'). Is this account an owner/admin?'; return; }
+      var rows = await res.json();
+      if(isPoll){ rows.forEach(function(r){ if(!seenIds[r.id]){ notify(r); } }); }
+      rows.forEach(function(r){ seenIds[r.id]=true; });
+      $('leadsMsg').classList.add('hide');
+      $('leadsTable').classList.remove('hide');
+      $('leadCount').textContent = rows.length + ' lead' + (rows.length===1?'':'s');
+      $('lastSync').textContent = ' · synced ' + new Date().toLocaleTimeString();
+      $('leadsBody').innerHTML = rows.map(rowHtml).join('');
+    }catch(e){ $('leadsMsg').textContent='Network error loading leads.'; }
   }
 
   function rowHtml(r){
@@ -170,54 +189,81 @@
     '</tr>';
   }
 
-  // ---- Realtime new-lead notifications ----
-  function subscribeRealtime(){
-    if (realtimeChannel) return;
-    realtimeChannel = supabase
-      .channel('leads-inserts')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'leads' }, (payload) => {
-        const r = payload.new;
-        $('leadsBody').insertAdjacentHTML('afterbegin', rowHtml(r));
-        notify(r);
-      })
-      .subscribe();
-  }
-
   function notify(r){
-    const title = 'New lead: ' + (r.name || 'Someone');
-    const body = [r.interest, r.phone, r.email].filter(Boolean).join(' · ') || 'Tap to view in the Owner Portal';
-    if ('Notification' in window && Notification.permission === 'granted'){
-      try { new Notification(title, { body, icon: '/icon-192.png', tag: 'fff-lead-'+(r.id||Date.now()) }); } catch(e){}
+    var title = 'New lead: ' + (r.name || 'Someone');
+    var body = [r.interest, r.phone, r.email].filter(Boolean).join(' · ') || 'Open the Owner Portal to view.';
+    if('Notification' in window && Notification.permission==='granted'){
+      try{ new Notification(title, { body:body, icon:'/icon-192.png', tag:'fff-lead-'+(r.id||Date.now()) }); }catch(e){}
     }
-    // audible + visible fallback
-    try { document.title = '● ' + title; } catch(e){}
+    try{ document.title = '● New lead — Owner Portal'; }catch(e){}
   }
 
-  $('notifyBtn').addEventListener('click', async () => {
-    if (!('Notification' in window)){ alert('This browser does not support notifications.'); return; }
-    const perm = await Notification.requestPermission();
-    $('notifyBtn').textContent = perm === 'granted' ? '🔔 Alerts on' : '🔕 Alerts blocked';
+  // ---------- Realtime (raw WebSocket direct to Supabase; no CDN) ----------
+  var ws=null, hb=null;
+  function setLive(on){ $('liveDot').className='dot'+(on?' live':''); $('liveTxt').textContent = on?'live':'polling'; }
+  function openRealtime(){
+    try{
+      ws = new WebSocket('wss://'+REF+'.supabase.co/realtime/v1/websocket?apikey='+encodeURIComponent(SUPABASE_KEY)+'&vsn=1.0.0');
+      ws.onopen = function(){
+        ws.send(JSON.stringify({ topic:'realtime:public:leads', event:'phx_join', ref:'1', payload:{
+          config:{ postgres_changes:[{ event:'INSERT', schema:'public', table:'leads' }] },
+          access_token: session.access_token
+        }}));
+        hb = setInterval(function(){ if(ws && ws.readyState===1) ws.send(JSON.stringify({topic:'phoenix',event:'heartbeat',payload:{},ref:'hb'})); }, 25000);
+      };
+      ws.onmessage = function(ev){
+        var m; try{ m=JSON.parse(ev.data); }catch(e){ return; }
+        if(m.event==='phx_reply' && m.ref==='1' && m.payload && m.payload.status==='ok'){ setLive(true); }
+        if(m.event==='postgres_changes' && m.payload && m.payload.data && m.payload.data.record){
+          var r = m.payload.data.record;
+          if(!seenIds[r.id]){ seenIds[r.id]=true; $('leadsBody').insertAdjacentHTML('afterbegin', rowHtml(r)); notify(r); }
+        }
+      };
+      ws.onclose = function(){ setLive(false); clearInterval(hb); if(session){ setTimeout(openRealtime, 4000); } };
+      ws.onerror = function(){ try{ ws.close(); }catch(e){} };
+    }catch(e){ setLive(false); }
+  }
+  function closeRealtime(){ try{ if(ws){ ws.onclose=null; ws.close(); } }catch(e){} ws=null; clearInterval(hb); setLive(false); }
+
+  // ---------- Polling fallback (always on) ----------
+  var pollTimer=null;
+  function startPolling(){ if(pollTimer) return; pollTimer=setInterval(function(){ loadLeads(true); }, 20000); }
+  function stopPolling(){ clearInterval(pollTimer); pollTimer=null; }
+
+  // ---------- Notifications permission ----------
+  $('notifyBtn').addEventListener('click', async function(){
+    if(!('Notification' in window)){ alert('This browser does not support notifications.'); return; }
+    var p = await Notification.requestPermission();
+    $('notifyBtn').textContent = p==='granted' ? '🔔 Alerts on' : '🔕 Alerts blocked';
+  });
+  $('refreshBtn').addEventListener('click', function(){ loadLeads(false); });
+
+  // ---------- Change password ----------
+  $('pwChangeBtn').addEventListener('click', function(){ $('pwPanel').classList.toggle('hide'); });
+  $('pwSaveBtn').addEventListener('click', async function(){
+    var pw = $('newpw').value; $('pwMsg').className=''; $('pwMsg').textContent='';
+    if(!pw || pw.length<10){ $('pwMsg').className='err'; $('pwMsg').textContent='Use at least 10 characters.'; return; }
+    try{
+      var res = await fetch(SUPABASE_URL+'/auth/v1/user', { method:'PUT', headers:authHeaders(), body:JSON.stringify({password:pw}) });
+      if(!res.ok){ var d=await res.json(); $('pwMsg').className='err'; $('pwMsg').textContent=(d.msg||d.error_description||'Update failed.'); return; }
+      $('pwMsg').className='ok'; $('pwMsg').textContent='Password updated.'; $('newpw').value='';
+    }catch(e){ $('pwMsg').className='err'; $('pwMsg').textContent='Network error.'; }
   });
 
-  $('refreshBtn').addEventListener('click', loadLeads);
+  // ---------- Boot ----------
+  async function boot(){
+    renderSessionBar();
+    if(!session){ show('login'); closeRealtime(); stopPolling(); return; }
+    show('dash');
+    if('Notification' in window && Notification.permission==='granted') $('notifyBtn').textContent='🔔 Alerts on';
+    await loadLeads(false);
+    openRealtime();
+    startPolling();
+  }
 
-  // ---- Change password ----
-  $('pwChangeBtn').addEventListener('click', () => $('pwPanel').classList.toggle('hide'));
-  $('pwSaveBtn').addEventListener('click', async () => {
-    const pw = $('newpw').value;
-    $('pwMsg').className=''; $('pwMsg').textContent='';
-    if (!pw || pw.length < 10){ $('pwMsg').className='err'; $('pwMsg').textContent='Use at least 10 characters.'; return; }
-    const { error } = await supabase.auth.updateUser({ password: pw });
-    if (error){ $('pwMsg').className='err'; $('pwMsg').textContent=error.message; }
-    else { $('pwMsg').className='ok'; $('pwMsg').textContent='Password updated.'; $('newpw').value=''; }
-  });
-
-  // ---- Init ----
-  (async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    boot(session);
-    if ('Notification' in window && Notification.permission === 'granted') $('notifyBtn').textContent = '🔔 Alerts on';
-  })();
+  loadSession();
+  boot();
+})();
 </script>
 </body>
 </html>
