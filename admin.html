@@ -102,6 +102,8 @@
   var SUPABASE_KEY = 'sb_publishable_xtsrz6wKWkdRdXvhz9vgAg_EkweEzoG';
   var REF = 'iquwylyezprcejgvmnwd';
   var TOKEN_STORE = 'fff_owner_session';
+  // Web Push (VAPID) public key — safe to expose in client. Private key lives only server-side.
+  var VAPID_PUBLIC_KEY = 'BMobHXyxdUwtPfXKrNH5XSIklExlidPwd4Q0-fcgQeW2-eY7WEh8ZDdDnRdcddZ8ahf0fFM_MvBlvEfevPE4mqQ';
 
   var $ = function(id){ return document.getElementById(id); };
   var esc = function(s){ return s==null?'':String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); };
@@ -230,11 +232,55 @@
   function startPolling(){ if(pollTimer) return; pollTimer=setInterval(function(){ loadLeads(true); }, 20000); }
   function stopPolling(){ clearInterval(pollTimer); pollTimer=null; }
 
-  // ---------- Notifications permission ----------
+  // ---------- Background push notifications (VAPID) ----------
+  var swReg = null;
+  function urlB64ToUint8Array(base64String){
+    var padding = '='.repeat((4 - base64String.length % 4) % 4);
+    var base64 = (base64String + padding).replace(/-/g,'+').replace(/_/g,'/');
+    var raw = atob(base64); var arr = new Uint8Array(raw.length);
+    for(var i=0;i<raw.length;i++){ arr[i]=raw.charCodeAt(i); }
+    return arr;
+  }
+  async function registerSW(){
+    if(!('serviceWorker' in navigator)) return null;
+    try{ swReg = await navigator.serviceWorker.register('/sw.js'); await navigator.serviceWorker.ready; return swReg; }
+    catch(e){ return null; }
+  }
+  async function saveSubscription(sub){
+    var raw = sub.toJSON();
+    var body = {
+      user_id: session.user.id,
+      endpoint: sub.endpoint,
+      p256dh: raw.keys && raw.keys.p256dh,
+      auth: raw.keys && raw.keys.auth
+    };
+    var res = await fetch(SUPABASE_URL+'/rest/v1/push_subscriptions?on_conflict=endpoint', {
+      method:'POST',
+      headers: Object.assign(authHeaders(), { 'Prefer':'resolution=merge-duplicates,return=minimal' }),
+      body: JSON.stringify(body)
+    });
+    return res.ok;
+  }
+  function setNotifyLabel(txt){ $('notifyBtn').textContent = txt; }
   $('notifyBtn').addEventListener('click', async function(){
-    if(!('Notification' in window)){ alert('This browser does not support notifications.'); return; }
-    var p = await Notification.requestPermission();
-    $('notifyBtn').textContent = p==='granted' ? '🔔 Alerts on' : '🔕 Alerts blocked';
+    if(!('Notification' in window) || !('serviceWorker' in navigator) || !('PushManager' in window)){
+      alert('This browser/device does not support background notifications. On iPhone, add this page to your Home Screen first (Share → Add to Home Screen), then open it and tap Enable alerts.');
+      return;
+    }
+    setNotifyLabel('… enabling');
+    var perm = await Notification.requestPermission();
+    if(perm!=='granted'){ setNotifyLabel('🔕 Alerts blocked'); return; }
+    if(!swReg){ swReg = await registerSW(); }
+    if(!swReg){ setNotifyLabel('🔕 SW error'); alert('Could not register the service worker.'); return; }
+    try{
+      var sub = await swReg.pushManager.getSubscription();
+      if(!sub){
+        sub = await swReg.pushManager.subscribe({ userVisibleOnly:true, applicationServerKey: urlB64ToUint8Array(VAPID_PUBLIC_KEY) });
+      }
+      var ok = await saveSubscription(sub);
+      setNotifyLabel(ok ? '🔔 Alerts on (this device)' : '🔕 Save failed');
+      if(!ok){ alert('Subscribed on device, but saving to the server failed. Try again.'); }
+    }catch(e){ setNotifyLabel('🔕 Alerts error'); alert('Could not enable background alerts: '+(e&&e.message||e)); }
   });
   $('refreshBtn').addEventListener('click', function(){ loadLeads(false); });
 
@@ -255,7 +301,10 @@
     renderSessionBar();
     if(!session){ show('login'); closeRealtime(); stopPolling(); return; }
     show('dash');
-    if('Notification' in window && Notification.permission==='granted') $('notifyBtn').textContent='🔔 Alerts on';
+    await registerSW();
+    if('Notification' in window && Notification.permission==='granted' && swReg){
+      try{ var s = await swReg.pushManager.getSubscription(); setNotifyLabel(s ? '🔔 Alerts on (this device)' : '🔔 Enable alerts'); }catch(e){}
+    }
     await loadLeads(false);
     openRealtime();
     startPolling();

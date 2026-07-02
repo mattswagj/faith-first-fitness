@@ -1,5 +1,5 @@
-/* Faith First Fitness service worker — offline cache + PWA installability */
-const CACHE = 'fff-cache-v1';
+/* Faith First Fitness service worker — offline cache + PWA installability + web push */
+const CACHE = 'fff-cache-v2';
 const CORE = [
   '/',
   '/index.html',
@@ -52,6 +52,37 @@ self.addEventListener('fetch', (e) => {
           return res;
         }).catch(() => cached)
       );
+    })
+  );
+});
+
+/* ---------- Web Push: background notifications (works when app is closed) ---------- */
+self.addEventListener('push', (e) => {
+  let data = {};
+  try { data = e.data ? e.data.json() : {}; } catch (err) {
+    try { data = { body: e.data.text() }; } catch (e2) { data = {}; }
+  }
+  const title = data.title || 'New lead — Faith First Fitness';
+  const options = {
+    body: data.body || 'A new sign-up just came in. Tap to view.',
+    icon: '/icon-192.png',
+    badge: '/icon-192.png',
+    tag: data.tag || 'fff-lead',
+    renotify: true,
+    data: { url: data.url || '/admin' }
+  };
+  e.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('notificationclick', (e) => {
+  e.notification.close();
+  const target = (e.notification.data && e.notification.data.url) || '/admin';
+  e.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clients) => {
+      for (const c of clients) {
+        if (c.url.includes('/admin') && 'focus' in c) return c.focus();
+      }
+      if (self.clients.openWindow) return self.clients.openWindow(target);
     })
   );
 });
