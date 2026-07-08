@@ -260,6 +260,29 @@
   .modal ul{margin:0 0 14px 20px;color:#4a4570}
   .modal li{margin-bottom:6px}
 
+  /* Promo pop-up (course promotion) */
+  .promo-back{position:fixed;inset:0;background:rgba(20,16,60,.65);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;z-index:400;padding:20px}
+  .promo-back.open{display:flex}
+  .promo{position:relative;width:100%;max-width:440px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;max-height:92vh;overflow-y:auto;animation:pop .22s ease}
+  .promo .p-top{background:radial-gradient(700px 340px at 80% -20%,rgba(155,48,255,.35),transparent),linear-gradient(160deg,var(--navy),var(--navy-2));padding:30px 28px 26px;text-align:center;color:#fff}
+  .promo .p-top img{width:82px;height:82px;border-radius:50%;background:#fff;object-fit:cover;box-shadow:var(--shadow-sm);margin:0 auto 12px;display:block}
+  .promo .p-eyebrow{display:inline-block;font-family:'Baloo 2',sans-serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.72rem;color:var(--navy);background:var(--yellow);padding:6px 14px;border-radius:999px;margin-bottom:12px}
+  .promo h3{color:#fff;font-size:1.6rem;line-height:1.12;margin-bottom:6px}
+  .promo h3 .pop{color:var(--yellow)}
+  .promo .p-body{padding:22px 28px 28px;text-align:center}
+  .promo .p-body p{color:#4a4570;margin-bottom:18px;font-size:1.02rem}
+  .promo .p-cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.08rem;padding:15px 26px;border-radius:999px;border:0;cursor:pointer;background:var(--orange);color:#fff;text-decoration:none;box-shadow:var(--shadow-sm);transition:transform .15s ease,box-shadow .15s ease}
+  .promo .p-cta:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+  .promo .p-later{display:block;margin:14px auto 0;background:none;border:0;color:#8a86a6;font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;text-decoration:underline}
+  .promo .p-later:hover{color:var(--navy)}
+  .promo .x{position:absolute;top:12px;right:14px;background:rgba(255,255,255,.9);border:0;width:38px;height:38px;border-radius:50%;font-size:1.25rem;line-height:1;cursor:pointer;color:var(--navy);box-shadow:var(--shadow-sm);z-index:2}
+  .promo .x:hover{background:#fff}
+  @media(max-width:420px){
+    .promo .p-top{padding:26px 20px 22px}
+    .promo .p-body{padding:20px 20px 24px}
+    .promo h3{font-size:1.42rem}
+  }
+
   @media(max-width:900px){
     .hero-grid,.freddie-grid,.coach-grid,.contact-grid,.media-grid,.event-grid{grid-template-columns:1fr}
     .g4{grid-template-columns:repeat(2,1fr)}
@@ -821,6 +844,25 @@
   </div>
 </div>
 
+<!-- PROMO POP-UP: Coach Lucas course -->
+<div class="promo-back" id="promoBack" role="dialog" aria-modal="true" aria-labelledby="promoTitle" hidden>
+  <div class="promo">
+    <button class="x" id="promoClose" aria-label="Close pop-up">&times;</button>
+    <div class="p-top">
+      <img src="assets/fun-freddie-logo.png" alt="Fun Freddie logo — Faith First Fitness" />
+      <span class="p-eyebrow">New From Coach Lucas</span>
+      <h3 id="promoTitle">Fun Freddie <span class="pop">Wellness Systems</span></h3>
+    </div>
+    <div class="p-body">
+      <p>Coach Lucas's step-by-step course that helps parents and caregivers build fun, faith-filled healthy habits that actually stick. Beat childhood obesity one obstacle at a time! 🐛</p>
+      <a class="p-cta" id="promoCta"
+         href="https://datavious-lucas.mykajabi.com/fun-freddie-wellness-systems"
+         target="_blank" rel="noopener noreferrer">Enroll Now 🎉</a>
+      <button class="p-later" id="promoLater" type="button">Maybe later</button>
+    </div>
+  </div>
+</div>
+
 <!-- Structured data -->
 <script type="application/ld+json">
 {
@@ -943,6 +985,51 @@
     if (childAge.length > 60) return stop(e, "Child age is too long.");
     if (message.length > 4000) return stop(e, "Please shorten your message (4000 characters max).");
   }, true);
+})();
+</script>
+<script>
+(function(){
+  var KEY = 'fffPromoDismissed';
+  var back = document.getElementById('promoBack');
+  if (!back) return;
+  var closeBtn = document.getElementById('promoClose');
+  var laterBtn = document.getElementById('promoLater');
+  var cta = document.getElementById('promoCta');
+  var opened = false, lastFocus = null;
+
+  try { if (sessionStorage.getItem(KEY) === '1') return; } catch(e){}
+
+  function dismiss(){
+    if (!opened) return;
+    opened = false;
+    back.classList.remove('open');
+    back.hidden = true;
+    document.body.style.overflow = '';
+    try { sessionStorage.setItem(KEY, '1'); } catch(e){}
+    document.removeEventListener('keydown', onKey);
+    if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch(e){} }
+  }
+  function onKey(e){ if (e.key === 'Escape'){ e.stopPropagation(); dismiss(); } }
+  function open(){
+    if (opened) return;
+    try { if (sessionStorage.getItem(KEY) === '1') return; } catch(e){}
+    opened = true;
+    lastFocus = document.activeElement;
+    back.hidden = false;
+    back.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', onKey);
+    if (closeBtn && closeBtn.focus) { try { closeBtn.focus(); } catch(e){} }
+  }
+
+  closeBtn.addEventListener('click', dismiss);
+  laterBtn.addEventListener('click', dismiss);
+  // Click outside the card dismisses
+  back.addEventListener('click', function(e){ if (e.target === back) dismiss(); });
+  // Following the CTA counts as handled — don't nag again this session
+  cta.addEventListener('click', dismiss);
+
+  window.setTimeout(open, 1500);
 })();
 </script>
 </body>
