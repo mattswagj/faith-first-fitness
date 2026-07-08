@@ -701,17 +701,16 @@
       <!-- SHORT BENEFIT LINE -->
       <p id="bookBenefit">"A Fun Story About Healthy Eating, Movement, and Growing Strong!" — Coach Lucas's children's book that gets kids loving fruits, veggies, and moving their bodies.</p>
     </div>
-    <div class="book-card" style="max-width:680px;margin:30px auto 0">
-      <div style="display:flex;flex-wrap:wrap;gap:26px;align-items:center;justify-content:center;text-align:center">
-        <a href="https://www.amazon.com/Fruits-Veggies-Fun-Freddie-Movement/dp/B0DTB1KBWM" target="_blank" rel="noopener noreferrer" style="flex:0 0 auto" aria-label="Preview Fruits & Veggies Fun Freddie on Amazon">
-          <img src="https://m.media-amazon.com/images/I/61Pw0-JLmhL._SL500_.jpg"
-               alt="Cover of Fruits and Veggies Fun Freddie book by Dr. Kem Lion"
-               loading="lazy" width="180"
-               style="width:180px;max-width:44vw;height:auto;border-radius:14px;box-shadow:var(--shadow)"
-               onerror="this.style.display='none'">
-        </a>
-        <div style="flex:1 1 260px;min-width:240px">
-          <div class="chips">
+    <div class="book-card" style="max-width:640px;margin:30px auto 0;text-align:center">
+      <!-- COVER IMAGE: the book cover lives at the Amazon listing
+           (https://m.media-amazon.com/images/I/61Pw0-JLmhL._SL500_.jpg). It is NOT
+           embedded here because the site's Content-Security-Policy (img-src) blocks
+           the m.media-amazon.com host. To show it: add that host to the CSP img-src,
+           OR download the image into /assets and reference it locally, then re-add:
+           <img src="assets/book-cover.jpg" alt="Fruits and Veggies Fun Freddie book cover" width="180" style="border-radius:14px;box-shadow:var(--shadow)"> -->
+      <div>
+        <div>
+          <div class="chips" style="justify-content:center">
             <span class="chip">💪 Build confidence</span>
             <span class="chip">🙏 Faith &amp; fitness</span>
             <span class="chip">👨‍👩‍👧 For families</span>
