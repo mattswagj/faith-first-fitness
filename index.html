@@ -689,42 +689,50 @@
 </section>
 
 <!-- ======================= COACH LUCAS'S BOOK ======================= -->
-<!-- Book purchase section. Front-end only. To go live: (1) rename the book
-     title/benefit/price below, (2) see the "REAL PAYMENT LINK" comment near
-     the Buy button to drop in the Stripe/PayPal checkout URL. -->
+<!-- Book purchase section — LIVE. Buyers pay Coach Lucas directly via Cash App.
+     To change payment: edit the CASH APP LINK on the "Buy the Book" <a> below.
+     Book details (title/price/cover) sourced from the Amazon listing. -->
 <section class="book-buy" id="book" style="background:linear-gradient(160deg,#fff6e3,#fff);padding:72px 0">
   <div class="wrap">
     <div class="sec-head center">
       <span class="eyebrow">Read With Coach Lucas</span>
-      <!-- BOOK TITLE placeholder — easy to rename -->
-      <h2 id="bookTitle">Coach Lucas's Book 📖</h2>
+      <!-- BOOK TITLE (from Amazon listing) -->
+      <h2 id="bookTitle">Fruits &amp; Veggies Fun Freddie 📖</h2>
       <!-- SHORT BENEFIT LINE -->
-      <p id="bookBenefit">Faith-filled encouragement and simple, fun habits that help kids feel strong, confident, and loved — straight from Coach Lucas.</p>
+      <p id="bookBenefit">"A Fun Story About Healthy Eating, Movement, and Growing Strong!" — Coach Lucas's children's book that gets kids loving fruits, veggies, and moving their bodies.</p>
     </div>
-    <div class="book-card" style="max-width:640px;margin:30px auto 0;text-align:center">
-      <div class="chips" style="justify-content:center">
-        <span class="chip">💪 Build confidence</span>
-        <span class="chip">🙏 Faith &amp; fitness</span>
-        <span class="chip">👨‍👩‍👧 For families</span>
+    <div class="book-card" style="max-width:680px;margin:30px auto 0">
+      <div style="display:flex;flex-wrap:wrap;gap:26px;align-items:center;justify-content:center;text-align:center">
+        <a href="https://www.amazon.com/Fruits-Veggies-Fun-Freddie-Movement/dp/B0DTB1KBWM" target="_blank" rel="noopener noreferrer" style="flex:0 0 auto" aria-label="Preview Fruits & Veggies Fun Freddie on Amazon">
+          <img src="https://m.media-amazon.com/images/I/61Pw0-JLmhL._SL500_.jpg"
+               alt="Cover of Fruits and Veggies Fun Freddie book by Dr. Kem Lion"
+               loading="lazy" width="180"
+               style="width:180px;max-width:44vw;height:auto;border-radius:14px;box-shadow:var(--shadow)"
+               onerror="this.style.display='none'">
+        </a>
+        <div style="flex:1 1 260px;min-width:240px">
+          <div class="chips">
+            <span class="chip">💪 Build confidence</span>
+            <span class="chip">🙏 Faith &amp; fitness</span>
+            <span class="chip">👨‍👩‍👧 For families</span>
+          </div>
+          <!-- PRICE (from Amazon listing — owner to confirm exact direct-pay price) -->
+          <p id="bookPrice" style="font-family:'Baloo 2',sans-serif;font-weight:800;color:var(--navy);font-size:1.25rem;margin:6px 0 16px">$11.33 <span style="font-weight:700;color:#a05a00;font-size:.95rem">— pay via Cash App</span></p>
+
+          <!-- ================= BUY BUTTON (LIVE — pays Coach directly) ================= -->
+          <!-- CASH APP LINK: change the href below to update where payment goes -->
+          <a href="https://cash.app/$faithfirstfitness" target="_blank" rel="noopener noreferrer"
+             id="buyBookBtn" class="btn btn-orange"
+             style="font-size:1.1rem;padding:16px 30px">Buy the Book — Pay Coach Directly 💵</a>
+
+          <div style="margin-top:14px">
+            <!-- SECONDARY: preview the book on Amazon -->
+            <a href="https://www.amazon.com/Fruits-Veggies-Fun-Freddie-Movement/dp/B0DTB1KBWM" target="_blank" rel="noopener noreferrer" style="color:var(--navy);font-weight:700;text-decoration:underline">Preview on Amazon ↗</a>
+          </div>
+
+          <p style="font-size:.82rem;color:#6b6482;margin-top:14px">Tap "Buy the Book" to pay Coach Lucas securely through Cash App, then message us your shipping details.</p>
+        </div>
       </div>
-      <!-- PRICE placeholder — easy to rename -->
-      <p id="bookPrice" style="font-family:'Baloo 2',sans-serif;font-weight:800;color:var(--navy);font-size:1.15rem;margin:6px 0 18px">Coming soon</p>
-
-      <!-- ================= BUY BUTTON ================= -->
-      <!-- REAL PAYMENT LINK GOES HERE: when the Stripe/PayPal checkout URL is
-           ready, replace the disabled button below with this single line and
-           set the href to the real URL:
-           <a href="PASTE_STRIPE_OR_PAYPAL_URL_HERE" target="_blank" rel="noopener" class="btn btn-orange" style="font-size:1.1rem;padding:16px 34px">Buy the Book 🛒</a>
-      -->
-      <button type="button" id="buyBookBtn" class="btn btn-orange" aria-disabled="true" disabled
-              style="font-size:1.1rem;padding:16px 34px;opacity:.85;cursor:not-allowed">
-        Buy the Book — Available Soon 🛒
-      </button>
-
-      <p style="font-size:.86rem;color:#a05a00;margin-top:16px">
-        <span class="flag">Checkout opening soon</span>
-        Secure purchasing is being set up. Want to be first to know? <a href="#contact" style="color:var(--orange);font-weight:700">Message Coach Lucas</a> and we'll let you know the moment it's live.
-      </p>
     </div>
   </div>
 </section>
