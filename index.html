@@ -688,6 +688,24 @@
   </div>
 </section>
 
+<style>
+  .book-buy-grid{display:flex;gap:32px;align-items:center;text-align:left}
+  .book-cover-wrap{flex:0 0 auto}
+  .book-cover-img{width:270px;max-width:100%;height:auto;border-radius:16px;box-shadow:var(--shadow);display:block}
+  .book-buy-copy{flex:1 1 300px;min-width:260px}
+  .book-gallery{margin-top:26px;border-top:2px dashed rgba(26,19,112,.12);padding-top:20px;text-align:center}
+  .book-gallery-label{display:inline-block;font-family:'Baloo 2',sans-serif;font-weight:800;color:var(--navy);font-size:1.05rem;margin-bottom:14px}
+  .book-thumbs{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .book-thumb{height:132px;width:auto;max-width:100%;border-radius:12px;box-shadow:var(--shadow-sm);transition:transform .15s ease;cursor:pointer;border:3px solid #fff}
+  .book-thumb:hover{transform:translateY(-3px)}
+  @media(max-width:640px){
+    .book-buy-grid{flex-direction:column;text-align:center;gap:22px}
+    .book-buy-copy{min-width:0}
+    .book-buy-copy .chips{justify-content:center}
+    .book-cover-img{width:220px}
+    .book-thumb{height:104px}
+  }
+</style>
 <!-- ======================= COACH LUCAS'S BOOK ======================= -->
 <!-- Book purchase section — LIVE. Buyers pay Coach Lucas directly via Cash App.
      To change payment: edit the CASH APP LINK on the "Buy the Book" <a> below.
@@ -701,16 +719,16 @@
       <!-- SHORT BENEFIT LINE -->
       <p id="bookBenefit">"A Fun Story About Healthy Eating, Movement, and Growing Strong!" — Coach Lucas's children's book that gets kids loving fruits, veggies, and moving their bodies.</p>
     </div>
-    <div class="book-card" style="max-width:640px;margin:30px auto 0;text-align:center">
-      <!-- COVER IMAGE: the book cover lives at the Amazon listing
-           (https://m.media-amazon.com/images/I/61Pw0-JLmhL._SL500_.jpg). It is NOT
-           embedded here because the site's Content-Security-Policy (img-src) blocks
-           the m.media-amazon.com host. To show it: add that host to the CSP img-src,
-           OR download the image into /assets and reference it locally, then re-add:
-           <img src="assets/book-cover.jpg" alt="Fruits and Veggies Fun Freddie book cover" width="180" style="border-radius:14px;box-shadow:var(--shadow)"> -->
-      <div>
-        <div>
-          <div class="chips" style="justify-content:center">
+    <div class="book-card" style="max-width:820px;margin:30px auto 0">
+      <div class="book-buy-grid">
+        <!-- FRONT COVER (self-hosted, cropped from the printed cover art) -->
+        <div class="book-cover-wrap">
+          <img src="assets/images/fun-freddie-cover.jpg" width="270" height="276"
+               alt="Front cover of Fruits & Veggies Fun Freddie, written by Dr. Lion (Coach Lucas)"
+               class="book-cover-img" loading="lazy">
+        </div>
+        <div class="book-buy-copy">
+          <div class="chips">
             <span class="chip">💪 Build confidence</span>
             <span class="chip">🙏 Faith &amp; fitness</span>
             <span class="chip">👨‍👩‍👧 For families</span>
@@ -732,7 +750,20 @@
           <p style="font-size:.82rem;color:#6b6482;margin-top:14px">Tap "Buy the Book" to pay Coach Lucas securely through Cash App, then message us your shipping details.</p>
         </div>
       </div>
-    </div>
+
+      <!-- PREVIEW GALLERY (self-hosted interior / character art; click to enlarge) -->
+      <div class="book-gallery">
+        <span class="book-gallery-label">A peek inside 📚</span>
+        <div class="book-thumbs">
+          <a href="assets/images/fun-freddie-inside.jpg" target="_blank" rel="noopener" aria-label="View inside pages of Fruits & Veggies Fun Freddie">
+            <img src="assets/images/fun-freddie-inside.jpg" alt="Inside pages of Fruits & Veggies Fun Freddie — story spreads, yoga poses, and about the author" class="book-thumb" loading="lazy">
+          </a>
+          <a href="assets/images/fun-freddie-characters.jpg" target="_blank" rel="noopener" aria-label="View Fun Freddie characters">
+            <img src="assets/images/fun-freddie-characters.jpg" alt="Fun Freddie characters — Dr. Lion and Freddie the caterpillar" class="book-thumb" loading="lazy">
+          </a>
+        </div>
+      </div>
+    </div>    </div>
   </div>
 </section>
 
